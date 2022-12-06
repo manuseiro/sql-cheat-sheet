@@ -48,25 +48,21 @@ DROP TRIGGER trigger_name
 --Excluir um gatilho(TRIGGER) específico
 
 -- GERENCIANDO VIEWS(MANAGING VIEWS)
-CREATE VIEW v(c1,c2)
-AS
+CREATE VIEW v(c1,c2) AS
 SELECT cl, c2
 FROM t;
 --Crie uma nova VIEW que consiste em cl e c2
-CREATE VIEW v(c1,c2)
-AS
+CREATE VIEW v(c1,c2) AS
 SELECT Cl, CZ
 FROM t;
 WITH [CASCADED | LOCAL] CHECK OPTION;
 --Crie uma nova VIEW com a opção de verificação
-CREATE RECURSIVE VIEW v
-AS
+CREATE RECURSIVE VIEW v AS
 select-statement —- anchor part
 UNION [ALL]
 select-statement; —- recursive part
 --Criar uma VIEW recursiva
-CREATE TEMPORARY VIEW v
-AS
+CREATE TEMPORARY VIEW v AS
 SELECT cl, C2
 FROM t;
 --Criar uma VIEW temporária
@@ -82,8 +78,8 @@ VALUES 	(vatue_list),
 		(vatue_list), ....;
 --Inserir várias linhas(ROWS) em uma tabela(TABLE)
 INSERT INTO t1(column_list)
-SELECT column_list
-FRON t2;
+SELECT column_list 
+	FROM t2;
 --Insert rows from t2 into tl
 UPDATE t
 SET cl = neu_value;
@@ -101,11 +97,11 @@ WHERE condition;
 
 -- CONSULTANDO EM VÁRIAS TABELAS (QUERYING FROM MULTIPLE TABLES)
 SELECT cl, c2
-FROU tl
+FROM tl
 INNER JOIN t2 ON condition;
 --Junção(JOIN) interna(INNER) Tl e T2
 SELECT cl, C2
-FROM tl
+FROM t1
 LEFT JOIN t2 ON condition;
 --Junção(JOIN) Esquerda(LEFT) Tl e Tl
 SELECT cl, c2
