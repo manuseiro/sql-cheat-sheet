@@ -1,28 +1,26 @@
 # SQL Basics Cheat Sheet
 
-
-## Índice 
-* [5. CONSULTANDO EM VÁRIAS TABELAS (QUERYING FROM MULTIPLE TABLES)](#consultando-em-varias-tabelas)
-* [6. USANDO RESTRIÇÕES SQL (USING SQL CONSTRAINTS)](#usando-restricoes-sql)
-* [7. USANDO OPERADORES SQL (USING SQL OPERATORS)](#usando-operadores-sql)
-* [Referencia](#referencia)
-
 ## SQL:
 Structured Query Language, ou Linguagem de Consulta Estruturada ou SQL, é a linguagem de pesquisa declarativa padrão para banco de dados relacional. Muitas das características originais do SQL foram inspiradas na álgebra relacional.
 
 ## Dados de Exemplo:
+
 COUNTRY (País)
 | id | name | population | area |
 | :---: | :---: | :---: | :---: |
 | 1 | Italia | 66600000 | 640680 |
-| 2 | Brazil | 80700000 | 357000 |
+| 2 | Brazil | 21400000 | 8515767 |
+| 3 | ... | ... | ... |
+| 4 | ... | ... | ... |
 | ... | ... | ... | ... |
 
 CITY (Cidade)
 | id | name | country_id | population | rating |
 | :---: | :---: | :---: | :---: | :---: |
 | 1 | Florença | 1 | 2243000 | 5 |
-| 2 | Fortaleza | 2 | 3460000 | 3 |
+| 2 | Fortaleza | 2 | 26870000 | 3 |
+| 3 | São Paulo | 2 | 12330000 | 1 |
+| 4 | ... | ... | ... | ... |
 | ... | ... | ... | ... | ... |
 
 ## 1.1. CONSULTANDO UMA TABELA ÚNICA(QUERYING SINGLE TABLE)
@@ -145,11 +143,21 @@ DROP TABLE district
 ```
 
 Adicionar uma nova coluna `WEALTH` à tabela **`DISTRICT`**
+
+| id | name | price | wealth |
+| :---: | :---: | :---: | :---: |
+| ... | ... | 0 | 1000000 |
+  
 ```bash
 ALTER TABLE district ADD COLUMN wealth
 ```
 
 Excluir coluna `WEALTH` da tabela **`DISTRICT`**
+
+| id | name | price |
+| :---: | :---: | :---: |
+| ... | ... | 0 |
+
 ```bash
 ALTER TABLE district DROP COLUMN wealth
 ```
@@ -158,7 +166,7 @@ Adicionar uma restrição(`CONSTRAINT`)
 ```bash
 ALTER TABLE district ADD constraint
 ```
-_**OBS:** As restrições(CONSTRAINT) podem ser especificadas quando a tabela é criada com a instrução CREATE TABLE ou depois que a tabela é criada com a instrução ALTER TABLE._
+OBS: As restrições(CONSTRAINT) podem ser especificadas quando a tabela é criada com a instrução CREATE TABLE ou depois que a tabela é criada com a instrução ALTER TABLE.
 
 Excluir uma restrição(CONSTRAINT)
 
@@ -168,23 +176,22 @@ ALTER TABLE district DROP constraint
 
 Renomear tabela "district1" para "T2"
 ```bash
-ALTER TABLE tl REMANE TO t2
+ALTER TABLE district1 REMANE TO t2
 ```
 
 Renomear Coluna "C1" para "C2" da tabela "district1"
 ```bash
-ALTER TABLE tl RENANE cl TO c2
+ALTER TABLE district1 RENANE cl TO c2
 ```
 
-Remover todos os dados da tabela "T"
+Remover todos os dados da tabela **`DISTRICT`**
 ```bash
-TRUNCATE TABLE t
+TRUNCATE TABLE district
 ```
 
 ## 3. GERENCIANDO GATILHOS(MANAGING TRIGGERS)
 
-Criar ou modificar um gatilho(TRIGGER)
-Neste exemplo o gatilho tera o nome de "trigger_name" 
+Criar ou modificar um gatilho(TRIGGER), neste exemplo o gatilho terá o nome de **`trigger_name`** 
 ```bash
 CREATE OR MODIFY TRIGGER trigger_name
 WHEN EVENT
@@ -215,7 +222,6 @@ DROP TRIGGER trigger_name
 ```
 
 ## 4. GERENCIANDO VIEWS(MANAGING VIEWS)
-
 Crie uma nova VIEW que consiste em cl e c2
 ```bash
 CREATE VIEW v(c1,c2) AS
@@ -289,11 +295,11 @@ WHERE condition;
 ## 6. CONSULTANDO EM VÁRIAS TABELAS (QUERYING FROM MULTIPLE TABLES)
 
 Junção(JOIN) interna(INNER) Tl e T2
-```bash
+
 SELECT cl, c2
 FROM districtl
 INNER JOIN t2 ON condition;
-```
+
 Junção(JOIN) Esquerda(LEFT) Tl e Tl
 ```bash
 SELECT cl, C2
@@ -332,7 +338,7 @@ SELECT Cl, C2
 FROM districtl A
 ```
 
-## 7. USANDO RESTRIÇÕES SQL (USING SQL CONSTRAINTS)
+## 6. USANDO RESTRIÇÕES SQL (USING SQL CONSTRAINTS)
 
 Definir C1 e CZ como chave-primária(primary-key)
 ```bash
@@ -370,7 +376,7 @@ cl INT PRIMARY KEY,
 c2 VARCHAR NOT NULL
 );
 ```
-## 8. USANDO OPERADORES SQL (USING SQL OPERATORS)
+## 7. USANDO OPERADORES SQL (USING SQL OPERATORS)
 
 Combine Rows FROM districtwo Queries
 ```bash
