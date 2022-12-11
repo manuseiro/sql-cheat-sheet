@@ -56,7 +56,7 @@ ALTER TABLE tl RENANE cl TO c2
 TRUNCATE TABLE t
 ```
 
-##2. GERENCIANDO GATILHOS(MANAGING TRIGGERS)
+## 2. GERENCIANDO GATILHOS(MANAGING TRIGGERS)
 
 ### Criar ou modificar um gatilho(TRIGGER)
 Neste exemplo o gatilho tera o nome de "trigger_name" 
