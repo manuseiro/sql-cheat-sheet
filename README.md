@@ -75,9 +75,9 @@ OBS: Comando utilzados no Microsoft SQL Server.
 | ... | ... | 0 | 
 
 ```bash
-CREATE TABLE DISTRICT (id INT PRIMARY KEY, name VARCHAR NOT NULL,price INT DEFAULT 0)
+CREATE TABLE district (id INT PRIMARY KEY, name VARCHAR NOT NULL,price INT DEFAULT 0)
 ```
-### Excluir a tabela `district` do banco de dados
+### Excluir a tabela `DISTRICT` do banco de dados
 
 ```bash
 DROP TABLE district
