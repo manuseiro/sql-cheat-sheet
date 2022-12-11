@@ -282,3 +282,8 @@ SELECT cl, C2 FROM t
 WHERE cl IS [NOT] NULL;
 ```
 
+
+## Referência
+
+ - [W3Schools - SQL Tutorial](https://www.w3schools.com/sql)
+
