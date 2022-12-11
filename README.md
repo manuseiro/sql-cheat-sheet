@@ -1,8 +1,6 @@
 # SQL-CHEAT-SHEET
 Segue algumas dicas para utilizar no SQL
 
-
-
 Neste exemplo nossa tabela tem o nome de "T", view de "V" e Coluna de "C":
 
 OBS: Comando utilzados no Microsoft SQL Server.
