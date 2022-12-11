@@ -1,43 +1,108 @@
-# SQL-CHEAT-SHEET
+# SQL Basics Cheat Sheet
+
+## SQL:
+Structured Query Language, ou Linguagem de Consulta Estruturada ou SQL, é a linguagem de pesquisa declarativa padrão para banco de dados relacional. Muitas das características originais do SQL foram inspiradas na álgebra relacional.
+
+## Dados de Exemplo:
+### COUNTRY (País)
+| id | name | population | area |
+| :---: | :---: | :---: | :---: |
+| 1 | Italia | 66600000 | 640680 |
+| 2 | Brazil | 80700000 | 357000 |
+| ... | ... | ... | ... |
+
+### CITY (Cidade)
+| id | name | country_id | population | rating |
+| :---: | :---: | :---: | :---: | :---: |
+| 1 | Florença | 1 | 2243000 | 5 |
+| 2 | Fortaleza | 2 | 3460000 | 3 |
+| ... | ... | ... | ... | ... |
+
+## CONSULTANDO UMA TABELA ÚNICA(QUERYING SINGLE TABLE)
+
+### Consultar todas(`*`) as colunas da tabela de `COUNTRY`:
+```bash
+SELECT *
+FROM country;
+```
+### Consultar as colunas `id` e `name` da tabela `CITY`:
+```bash
+SELECT id, name
+FROM city;
+```
+### Consultar os `NAME` das `CITY` classificados pela coluna `RATING` na ordem Crescente (ASC):
+```bash
+SELECT name
+FROM city
+ORDER BY rating [ASC];
+```
+### Consultar os `NAME` das `CITY` classificados pela coluna `RATING` na ordem Decrescente (DESC):
+```bash
+SELECT name
+FROM city
+ORDER BY rating DESC;
+```
+
+## APELIDOS (ALIASES)
+
+### Coluna `NAME` da tabela `CITY`
+```bash
+SELECT name AS city_name
+FROM city;
+```
+
+### Colunas `NAME` das tabelas `CITY` e `COUNTRY`
+```bash
+SELECT co.name, ci.name
+FROM city AS ci
+JOIN country AS co
+  ON ci.country_id = co.id;
+```
+
 Segue algumas dicas para utilizar no SQL
 
-Neste exemplo nossa tabela tem o nome de "T", view de "V" e Coluna de "C":
+Neste exemplo nossa tabela tem o nome de `District`, view de `V` e Coluna de `C`:
 
 OBS: Comando utilzados no Microsoft SQL Server.
 
 ## 1. GERENCIANDO TABELAS (MANAGING TABLES)
 
-### Criar uma nova tabela chamada 't' com três colunas (id, nome, price)
+### Criar uma nova tabela chamada `DISTRICT` com três colunas (id, name, price)
+
+### District (Bairro)
+| id | name | price |
+| :---: | :---: | :---: |
+| ... | ... | 0 | 
 
 ```bash
-CREATE TABLE t (id INT PRIMARY KEY, name VARCHAR NOT NULL,price INT DEFAULT 0)
+CREATE TABLE DISTRICT (id INT PRIMARY KEY, name VARCHAR NOT NULL,price INT DEFAULT 0)
 ```
-### Excluir a tabela do banco de dados
+### Excluir a tabela `district` do banco de dados
 
 ```bash
-DROP TABLE t
-```
-
-### Adicionar uma nova coluna à tabela
-```bash
-ALTER TABLE t ADD COLUMN c
-```
-
-### Excluir coluna "C" da tabela "T"
-```bash
-ALTER TABLE t DROP COLUMN c
+DROP TABLE district
 ```
 
-### Adicionar uma restrição(CONSTRAINT)
+### Adicionar uma nova coluna `WEALTH` à tabela `DISTRICT`
 ```bash
-ALTER TABLE t ADD constraint
+ALTER TABLE district ADD COLUMN wealth
+```
+
+### Excluir coluna `WEALTH` da tabela `DISTRICT`
+```bash
+ALTER TABLE district DROP COLUMN wealth
+```
+
+### Adicionar uma restrição(`CONSTRAINT`)
+```bash
+ALTER TABLE district ADD constraint
 ```
 OBS: As restrições(CONSTRAINT) podem ser especificadas quando a tabela é criada com a instrução CREATE TABLE ou depois que a tabela é criada com a instrução ALTER TABLE.
 
 ### Excluir uma restrição(CONSTRAINT)
 
 ```bash
-ALTER TABLE t DROP constraint
+ALTER TABLE district DROP constraint
 ```
 
 ### Renomear tabela "T1" para "T2"
@@ -65,16 +130,16 @@ WHEN EVENT
 ON table_nane TRIGGER TYPE
 EXECUTE stored_procedure;
 ```
-WHEN<br>
--- BEFORE -invocar(invoke) antes(BEFORE) que o evento ocorra<br>
--- AFTER -invocar(invoke) despois(AFTER) do evento ocorrer<br>
-EVENT<br>
--- INSERT - invoke for INSERT<br>
--- UPDATE - invoke for UPDATE<br>
--- DELETE - invoke for DELETE<br>
-TRIGGER_TYPE<br>
--- FOR EACH ROW<br>
--- FOR EACH STATEMENT<br>
+### WHEN<br>
+- BEFORE -invocar(invoke) antes(BEFORE) que o evento ocorra<br>
+- AFTER -invocar(invoke) despois(AFTER) do evento ocorrer<br>
+### EVENT<br>
+- INSERT - invoke for INSERT<br>
+- UPDATE - invoke for UPDATE<br>
+- DELETE - invoke for DELETE<br>
+### TRIGGER_TYPE<br>
+- FOR EACH ROW<br>
+- FOR EACH STATEMENT<br>
 
 ### Crie um gatilho(TRIGGER) invocado antes que uma nova linha seja inserida na person table
 ```bash
@@ -286,4 +351,4 @@ WHERE cl IS [NOT] NULL;
 ## Referência
 
  - [W3Schools - SQL Tutorial](https://www.w3schools.com/sql)
-
+ - [LearnSQL.com](https://learnsql.com/blog/sql-basics-cheat-sheet/sql-basics-cheat-sheet-a4.pdf)
