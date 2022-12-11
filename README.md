@@ -1,57 +1,64 @@
 # SQL Basics Cheat Sheet
 
+
+## Índice 
+* [5. CONSULTANDO EM VÁRIAS TABELAS (QUERYING FROM MULTIPLE TABLES)](#consultando-em-varias-tabelas)
+* [6. USANDO RESTRIÇÕES SQL (USING SQL CONSTRAINTS)](#usando-restricoes-sql)
+* [7. USANDO OPERADORES SQL (USING SQL OPERATORS)](#usando-operadores-sql)
+* [Referencia](#referencia)
+
 ## SQL:
 Structured Query Language, ou Linguagem de Consulta Estruturada ou SQL, é a linguagem de pesquisa declarativa padrão para banco de dados relacional. Muitas das características originais do SQL foram inspiradas na álgebra relacional.
 
 ## Dados de Exemplo:
-### COUNTRY (País)
+COUNTRY (País)
 | id | name | population | area |
 | :---: | :---: | :---: | :---: |
 | 1 | Italia | 66600000 | 640680 |
 | 2 | Brazil | 80700000 | 357000 |
 | ... | ... | ... | ... |
 
-### CITY (Cidade)
+CITY (Cidade)
 | id | name | country_id | population | rating |
 | :---: | :---: | :---: | :---: | :---: |
 | 1 | Florença | 1 | 2243000 | 5 |
 | 2 | Fortaleza | 2 | 3460000 | 3 |
 | ... | ... | ... | ... | ... |
 
-## CONSULTANDO UMA TABELA ÚNICA(QUERYING SINGLE TABLE)
+## 1.1. CONSULTANDO UMA TABELA ÚNICA(QUERYING SINGLE TABLE)
 
-### Consultar todas(`*`) as colunas da tabela de `COUNTRY`:
+Consultar todas(`*`) as colunas da tabela de `COUNTRY`:
 ```bash
 SELECT *
 FROM country;
 ```
-### Consultar as colunas `id` e `name` da tabela `CITY`:
+Consultar as colunas `ID` e `NAME` da tabela `CITY`:
 ```bash
 SELECT id, name
 FROM city;
 ```
-### Consultar os `NAME` das `CITY` classificados pela coluna `RATING` na ordem Crescente (ASC):
+Consultar os `NAME` das `CITY` classificados pela coluna `RATING` na ordem Crescente (ASC):
 ```bash
 SELECT name
 FROM city
 ORDER BY rating [ASC];
 ```
-### Consultar os `NAME` das `CITY` classificados pela coluna `RATING` na ordem Decrescente (DESC):
+Consultar os `NAME` das `CITY` classificados pela coluna `RATING` na ordem Decrescente (DESC):
 ```bash
 SELECT name
 FROM city
 ORDER BY rating DESC;
 ```
 
-## APELIDOS (ALIASES)
+## 1.2. APELIDOS (ALIASES)
 
-### Coluna `NAME` da tabela `CITY`
+Coluna `NAME` da tabela `CITY`
 ```bash
 SELECT name AS city_name
 FROM city;
 ```
 
-### Colunas `NAME` das tabelas `CITY` e `COUNTRY`
+Colunas `NAME` das tabelas `CITY` e `COUNTRY`
 ```bash
 SELECT co.name, ci.name
 FROM city AS ci
@@ -59,17 +66,71 @@ JOIN country AS co
   ON ci.country_id = co.id;
 ```
 
-Segue algumas dicas para utilizar no SQL
+## 1.3. FILTRANDO A SAÍDA (FILTERING THE OUTPUT)
 
-Neste exemplo nossa tabela tem o nome de `District`, view de `V` e Coluna de `C`:
+### OPERADORES DE COMPARAÇÃO (COMPARISON OPERATORS)
 
-OBS: Comando utilzados no Microsoft SQL Server.
+Consultar `NAME` da `CITY` com `RATING` acima de 3
+```bash
+SELECT name
+FROM city
+WHERE rating > 3;
+```
 
-## 1. GERENCIANDO TABELAS (MANAGING TABLES)
+Consultar `NAME` de `CITY` diferente de `FLORENÇA` e `FORTALEZA`
+```bash
+SELECT name
+FROM city
+WHERE name != 'Florença'
+  AND name != 'Fortaleza';
+```
 
-### Criar uma nova tabela chamada `DISTRICT` com três colunas (id, name, price)
+### OPERADORES DE TEXTO (TEXT OPERATORS)
 
-### District (Bairro)
+Consultar `NAME` de `CITY` que começam com 'f' ou terminam com 'a':
+```bash
+SELECT name
+FROM city
+WHERE name LIKE 'f%'
+  OR name LIKE '%a';
+```
+Consultar `NAME` de `CITY` que começe com qualquer letra seguida por 'ortaleza' (como Fortaleza):
+```bash
+SELECT name
+FROM city
+WHERE name LIKE '_ortaleza';
+```
+### OUTROS OPERADORES (OTHER OPERATORS)
+
+Consultar `NAME` de `CITY` com `POPULATION` entre(between) 500K e 5M:
+```bash
+SELECT name
+FROM city
+WHERE population BETWEEN 500000 AND 5000000;
+```
+Consultar `NAME` de `CITY` que não possuem um valor de `RATING`:
+```bash
+SELECT name
+FROM city
+WHERE rating IS NOT NULL;
+```
+Consultar `NAME` de `CITY` que estão em `COUNTRY` com `IDs` 1, 4, 7 ou 8:
+```bash
+SELECT name
+FROM city
+WHERE country_id IN (1, 4, 7, 8);
+```
+
+
+Segue algumas dicas para utilizar no SQL, Neste exemplo nossa tabela tem o nome de **`DISTRICT`**, view de `V` e Coluna de `C`:
+
+_OBS: Comandos utilzados no Microsoft SQL Server, alguns comandos podem ser diferentes no PostgreSQL._
+
+## 2. GERENCIANDO TABELAS (MANAGING TABLES)
+
+Criar uma nova tabela chamada **`DISTRICT`** com três colunas (id, name, price)
+
+District (Bairro)
 | id | name | price |
 | :---: | :---: | :---: |
 | ... | ... | 0 | 
@@ -77,52 +138,52 @@ OBS: Comando utilzados no Microsoft SQL Server.
 ```bash
 CREATE TABLE district (id INT PRIMARY KEY, name VARCHAR NOT NULL,price INT DEFAULT 0)
 ```
-### Excluir a tabela `DISTRICT` do banco de dados
+Excluir a tabela **`DISTRICT`** do banco de dados
 
 ```bash
 DROP TABLE district
 ```
 
-### Adicionar uma nova coluna `WEALTH` à tabela `DISTRICT`
+Adicionar uma nova coluna `WEALTH` à tabela **`DISTRICT`**
 ```bash
 ALTER TABLE district ADD COLUMN wealth
 ```
 
-### Excluir coluna `WEALTH` da tabela `DISTRICT`
+Excluir coluna `WEALTH` da tabela **`DISTRICT`**
 ```bash
 ALTER TABLE district DROP COLUMN wealth
 ```
 
-### Adicionar uma restrição(`CONSTRAINT`)
+Adicionar uma restrição(`CONSTRAINT`)
 ```bash
 ALTER TABLE district ADD constraint
 ```
-OBS: As restrições(CONSTRAINT) podem ser especificadas quando a tabela é criada com a instrução CREATE TABLE ou depois que a tabela é criada com a instrução ALTER TABLE.
+_**OBS:** As restrições(CONSTRAINT) podem ser especificadas quando a tabela é criada com a instrução CREATE TABLE ou depois que a tabela é criada com a instrução ALTER TABLE._
 
-### Excluir uma restrição(CONSTRAINT)
+Excluir uma restrição(CONSTRAINT)
 
 ```bash
 ALTER TABLE district DROP constraint
 ```
 
-### Renomear tabela "T1" para "T2"
+Renomear tabela "district1" para "T2"
 ```bash
 ALTER TABLE tl REMANE TO t2
 ```
 
-### Renomear Coluna "C1" para "C2" da tabela "T1"
+Renomear Coluna "C1" para "C2" da tabela "district1"
 ```bash
 ALTER TABLE tl RENANE cl TO c2
 ```
 
-### Remover todos os dados da tabela "T"
+Remover todos os dados da tabela "T"
 ```bash
 TRUNCATE TABLE t
 ```
 
-## 2. GERENCIANDO GATILHOS(MANAGING TRIGGERS)
+## 3. GERENCIANDO GATILHOS(MANAGING TRIGGERS)
 
-### Criar ou modificar um gatilho(TRIGGER)
+Criar ou modificar um gatilho(TRIGGER)
 Neste exemplo o gatilho tera o nome de "trigger_name" 
 ```bash
 CREATE OR MODIFY TRIGGER trigger_name
@@ -130,43 +191,44 @@ WHEN EVENT
 ON table_nane TRIGGER TYPE
 EXECUTE stored_procedure;
 ```
-### WHEN<br>
-- BEFORE -invocar(invoke) antes(BEFORE) que o evento ocorra<br>
-- AFTER -invocar(invoke) despois(AFTER) do evento ocorrer<br>
-### EVENT<br>
-- INSERT - invoke for INSERT<br>
-- UPDATE - invoke for UPDATE<br>
-- DELETE - invoke for DELETE<br>
-### TRIGGER_TYPE<br>
-- FOR EACH ROW<br>
-- FOR EACH STATEMENT<br>
+WHEN
+- BEFORE -invocar(invoke) antes(BEFORE) que o evento ocorra
+- AFTER -invocar(invoke) despois(AFTER) do evento ocorrer
+EVENT
+- INSERT - invoke for INSERT
+- UPDATE - invoke for UPDATE
+- DELETE - invoke for DELETE
+TRIGGER_TYPE
+- FOR EACH ROW
+- FOR EACH STATEMENT
 
-### Crie um gatilho(TRIGGER) invocado antes que uma nova linha seja inserida na person table
+Crie um gatilho(TRIGGER) invocado antes que uma nova linha seja inserida na person table
 ```bash
 CREATE TRIGGER
 BEFORE INSERT
 ON person FOR EACH ROW
 EXECUTE stored_procedure ;
 ```
-### Excluir um gatilho(TRIGGER) específico
+Excluir um gatilho(TRIGGER) específico
 ```bash
 DROP TRIGGER trigger_name
 ```
 
-## 3. GERENCIANDO VIEWS(MANAGING VIEWS)
-### Crie uma nova VIEW que consiste em cl e c2
+## 4. GERENCIANDO VIEWS(MANAGING VIEWS)
+
+Crie uma nova VIEW que consiste em cl e c2
 ```bash
 CREATE VIEW v(c1,c2) AS
 SELECT cl, c2
-FROM t
+FROM district
 ```
-### Crie uma nova VIEW com a opção de verificação
+Crie uma nova VIEW com a opção de verificação
 ```bash
 CREATE VIEW v(c1,c2) AS
-SELECT Cl, CZ
-FROM t
+SELECT Cl, C2
+FROM district
 ```
-### Criar uma VIEW recursiva
+Criar uma VIEW recursiva
 ```bash
 WITH [CASCADED | LOCAL] CHECK OPTION
 CREATE RECURSIVE VIEW v AS
@@ -174,179 +236,180 @@ select-statement —- anchor part
 UNION [ALL]
 select-statement —- recursive part
 ```
-### Criar uma VIEW temporária
+Criar uma VIEW temporária
 ```bash
 CREATE TEMPORARY VIEW v AS
 SELECT cl, C2
-FROM t
+FROM district
 ```
-### Excluir uma VIEW
+Excluir uma VIEW
 ```bash
 DROP VIEW view_name
 ```
-## MODIFICANDO DADOS (MODIFYING DATA)
+## 5. MODIFICANDO DADOS (MODIFYING DATA)
 
-### Inserir uma linha(ROW) em uma tabela(TABLE)
+Inserir(INSERT) uma linha(ROW) na tabela(TABLE) **`DISTRICT`**
 ```bash
-INSERT INTO t(column_list)
+INSERT INTO district(column_list)
 VALUES( value_list);
 ```
-### Inserir várias linhas(ROWS) em uma tabela(TABLE)
+Inserir várias linhas(ROWS) na tabela(TABLE) **`DISTRICT`**:
 ```bash
-INSERT INTO t(column_list)
+INSERT INTO district(column_list)
 VALUES 	(vatue_list),
 		(vatue_list), ....;
 ```
-### Insert rows from t2 into tl
+Inserir linhas(ROWS) da tabela(TABLE) `district2` no **`district1`**:
 ```bash
-INSERT INTO t1(column_list)
+INSERT INTO district1(column_list)
 SELECT column_list 
-	FROM t2;
+	FROM district2;
 ```
-### Update new value in the column cl for all rows
+Update new value in the column cl for all rows
 ```bash
-UPDATE t
-SET cl = neu_value;
+UPDATE district
+SET cl = new_value;
 ```
-### Update values in the column cl, c2 that match the condition
+Update values in the column cl, c2 that match the condition
 ```bash
-UPDATE t
-SET	cI = neu_value,
-	c2 = neu_value
+UPDATE district
+SET	cI = new_value,
+	c2 = new_value
 WHERE condition;
 ```
-### Delete all data in a table
+Delete all data in a table
 ```bash
-DELETE FROM t;
+DELETE FROM district;
 ```
-### Delete subset of rows in a table
+Delete subset of rows in a table
 ```bash
-DELETE FROM t
+DELETE FROM district
 WHERE condition;
 ```
-## 4. CONSULTANDO EM VÁRIAS TABELAS (QUERYING FROM MULTIPLE TABLES)
+## 6. CONSULTANDO EM VÁRIAS TABELAS (QUERYING FROM MULTIPLE TABLES)
 
-### Junção(JOIN) interna(INNER) Tl e T2
+Junção(JOIN) interna(INNER) Tl e T2
+```bash
 SELECT cl, c2
-FROM tl
+FROM districtl
 INNER JOIN t2 ON condition;
-
-### Junção(JOIN) Esquerda(LEFT) Tl e Tl
+```
+Junção(JOIN) Esquerda(LEFT) Tl e Tl
 ```bash
 SELECT cl, C2
-FROM t1
+FROM districdistrict1
 LEFT JOIN t2 ON condition;
 ```
 
-### Junção(JOIN) Direita(RIGHT) Tl E T2
+Junção(JOIN) Direita(RIGHT) Tl E T2
 ```bash
 SELECT cl, c2
-FROM tl
+FROM districtl
 RIGHT JOIN t2 ON condition;
 ```
 
-### Executar Junção(JOIN) externa(OUTER) completa(FULL)
+Executar Junção(JOIN) externa(OUTER) completa(FULL)
 ```bash
 SELECT Cl, CZ
-FROM tl
+FROM districtl
 FULL OUTER JOIN t2 ON condition;
 ```
 
-### Produzir um produto cartesiano de linhas em tabelas
+Produzir um produto cartesiano de linhas em tabelas
 ```bash
 SELECT cl, C2
-FROM tl
+FROM districtl
 CROSS JOIN t2;
 ```
 
 ```bash
 SELECT cl, c2
-FROM tl, t2;
+FROM districtl, t2;
 ```
-### Outra Maneira de Executar Junção(JOIN) Cruzada/Mistura(Cross)
+Outra Maneira de Executar Junção(JOIN) Cruzada/Mistura(Cross)
 ```bash
 SELECT Cl, C2
-FROM tl A
+FROM districtl A
 ```
-## 5. USANDO RESTRIÇÕES SQL (USING SQL CONSTRAINTS)
 
-### Definir C1 e CZ como chave-primária(primary-key)
+## 7. USANDO RESTRIÇÕES SQL (USING SQL CONSTRAINTS)
+
+Definir C1 e CZ como chave-primária(primary-key)
 ```bash
 CREATE TABLE t(
 	cl INT, C2 INT, C3 VARCHAR,
 	PRIMARY KEY (cl,c2)
 );
 ```
-### Defina a coluna c2 como uma chave-estrangeira(foreign-key)
+Defina a coluna c2 como uma chave-estrangeira(foreign-key)
 ```bash
-CREATE TABLE t1(
+CREATE TABLE district1(
 Cl INT PRIMARY KEY,
 C2 INT,
 FOREIGN KEY (c2) REFERENCES t2(c2)
 );
 ```
-### Torne os valores em cl e c2 exclusivos(UNIQUE)
+Torne os valores em cl e c2 exclusivos(UNIQUE)
 ```bash
 CREATE TABLE t(
 cl INT, cl INT,
 UNIQUE(c2, c3)
 );
 ```
-### Certifique-se de que cl > 0 e valores em cl>=c2
+Certifique-se de que cl > 0 e valores em cl>=c2
 ```bash
 CREATE TABLE t(
 cl INT, c2 INT,
 CHECK(c1> 0 AND cl >= c2)
 );
 ```
-### Definir valores na coluna c2 não é nulo (NOT NULL)
+Definir valores na coluna c2 não é nulo (NOT NULL)
 ```bash
 CREATE TABLE t(
 cl INT PRIMARY KEY,
 c2 VARCHAR NOT NULL
 );
 ```
-## 6. USANDO OPERADORES SQL (USING SQL OPERATORS)
+## 8. USANDO OPERADORES SQL (USING SQL OPERATORS)
 
-### Combine Rows From Two Queries
+Combine Rows FROM districtwo Queries
 ```bash
-SELECT cl, C2 FROM tl
+SELECT cl, C2 FROM districtl
 UNION [ALL]
-SELECT Cl, C2 FROM t2;
+SELECT Cl, C2 FROM district2;
 ```
-### Return The Intersection Of TWO Queries
+Return The Intersection Of TWO Queries
 ```bash
-SELECT cl, c2 FROM t1
+SELECT cl, c2 FROM districdistrict1
 INTERSECT
-SELECT Cl, C2 FROM T2;
+SELECT Cl, C2 FROM district2;
 ```
-### Subtract A Result Set From Another Result Set
+Subtract A Result Set From Another Result Set
 ```bash
-SELECT cl, c2 FROM tl
+SELECT cl, c2 FROM districtl
 MINUS
-SELECT cl, C2 FROM t2;
+SELECT cl, C2 FROM district2;
 ```
-### Query Rows Using Pattern Matching _
+Query Rows Using Pattern Matching _
 ```bash
-SELECT cl, c2 FROM tl
+SELECT cl, c2 FROM districtl
 WHERE Cl [NOT] LIKE pattern;
 ```
-### Query Rows In A List
+Query Rows In A List
 ```bash
-SELECT Cl, c2 FROM t
+SELECT Cl, c2 FROM district
 WHERE cl [NOT] IN value_list;
 ```
-### Query Rows Between Two Values
+Query Rows Between Two Values
 ```bash
-SELECT cl, c2 FROM t
+SELECT cl, c2 FROM district
 WHERE cl BETWEEN low AND high;
 ```
-### Check If Values In A Table IS NULL Or Not
+Check If Values In A Table IS NULL Or Not
 ```bash
-SELECT cl, C2 FROM t
+SELECT cl, C2 FROM district
 WHERE cl IS [NOT] NULL;
 ```
-
 
 ## Referência
 
