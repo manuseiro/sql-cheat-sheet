@@ -2,6 +2,7 @@
 Segue algumas dicas para utilizar no SQL
 
 
+
 Neste exemplo nossa tabela tem o nome de "T", view de "V" e Coluna de "C":
 
 OBS: Comando utilzados no Microsoft SQL Server.
@@ -66,16 +67,16 @@ WHEN EVENT
 ON table_nane TRIGGER TYPE
 EXECUTE stored_procedure;
 ```
-WHEN
--- BEFORE -invocar(invoke) antes(BEFORE) que o evento ocorra
--- AFTER -invocar(invoke) despois(AFTER) do evento ocorrer
-EVENT
--- INSERT - invoke for INSERT
--- UPDATE - invoke for UPDATE
--- DELETE - invoke for DELETE
-TRIGGER_TYPE
--- FOR EACH ROW
--- FOR EACH STATEMENT
+WHEN<br>
+-- BEFORE -invocar(invoke) antes(BEFORE) que o evento ocorra<br>
+-- AFTER -invocar(invoke) despois(AFTER) do evento ocorrer<br>
+EVENT<br>
+-- INSERT - invoke for INSERT<br>
+-- UPDATE - invoke for UPDATE<br>
+-- DELETE - invoke for DELETE<br>
+TRIGGER_TYPE<br>
+-- FOR EACH ROW<br>
+-- FOR EACH STATEMENT<br>
 
 ### Crie um gatilho(TRIGGER) invocado antes que uma nova linha seja inserida na person table
 ```bash
@@ -84,25 +85,25 @@ BEFORE INSERT
 ON person FOR EACH ROW
 EXECUTE stored_procedure ;
 ```
-###Excluir um gatilho(TRIGGER) específico
+### Excluir um gatilho(TRIGGER) específico
 ```bash
 DROP TRIGGER trigger_name
 ```
 
-##3. GERENCIANDO VIEWS(MANAGING VIEWS)
+## 3. GERENCIANDO VIEWS(MANAGING VIEWS)
 ### Crie uma nova VIEW que consiste em cl e c2
 ```bash
 CREATE VIEW v(c1,c2) AS
 SELECT cl, c2
 FROM t
-
+```
 ### Crie uma nova VIEW com a opção de verificação
 ```bash
 CREATE VIEW v(c1,c2) AS
 SELECT Cl, CZ
 FROM t
 ```
-###Criar uma VIEW recursiva
+### Criar uma VIEW recursiva
 ```bash
 WITH [CASCADED | LOCAL] CHECK OPTION
 CREATE RECURSIVE VIEW v AS
@@ -110,7 +111,8 @@ select-statement —- anchor part
 UNION [ALL]
 select-statement —- recursive part
 ```
-###Criar uma VIEW temporária
+### Criar uma VIEW temporária
+```bash
 CREATE TEMPORARY VIEW v AS
 SELECT cl, C2
 FROM t
@@ -159,7 +161,7 @@ DELETE FROM t;
 DELETE FROM t
 WHERE condition;
 ```
-## CONSULTANDO EM VÁRIAS TABELAS (QUERYING FROM MULTIPLE TABLES)
+## 4. CONSULTANDO EM VÁRIAS TABELAS (QUERYING FROM MULTIPLE TABLES)
 
 ### Junção(JOIN) interna(INNER) Tl e T2
 SELECT cl, c2
@@ -203,7 +205,7 @@ FROM tl, t2;
 SELECT Cl, C2
 FROM tl A
 ```
-## USANDO RESTRIÇÕES SQL (USING SQL CONSTRAINTS)
+## 5. USANDO RESTRIÇÕES SQL (USING SQL CONSTRAINTS)
 
 ### Definir C1 e CZ como chave-primária(primary-key)
 ```bash
@@ -241,7 +243,7 @@ cl INT PRIMARY KEY,
 c2 VARCHAR NOT NULL
 );
 ```
-## USANDO OPERADORES SQL (USING SQL OPERATORS)
+## 6. USANDO OPERADORES SQL (USING SQL OPERATORS)
 
 ### Combine Rows From Two Queries
 ```bash
