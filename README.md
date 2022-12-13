@@ -371,7 +371,7 @@ Delete subset of rows in a table
 DELETE FROM district
 WHERE condition;
 ```
-## 6. CONSULTANDO EM VÁRIAS TABELAS (QUERYING FROM MULTIPLE TABLES)
+## 6. CONSULTANDO EM MÚLTIPLAS TABELAS (QUERYING FROM MULTIPLE TABLES)
 
 Junção(JOIN) interna(INNER) Tl e T2
 
@@ -382,7 +382,7 @@ INNER JOIN t2 ON condition;
 Junção(JOIN) Esquerda(LEFT) Tl e Tl
 ```bash
 SELECT cl, C2
-FROM districdistrict1
+FROM district1
 LEFT JOIN t2 ON condition;
 ```
 
