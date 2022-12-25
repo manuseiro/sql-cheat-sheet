@@ -1,5 +1,7 @@
 # SQL Basics Cheat Sheet
 
+O SQL Basics Cheat Sheet fornece a sintaxe de todas as cláusulas básicas, mostra como escrever condições diferentes e tem exemplos.
+
 ## SQL:
 Structured Query Language, ou Linguagem de Consulta Estruturada ou SQL, é a linguagem de pesquisa declarativa padrão para banco de dados relacional. Muitas das características originais do SQL foram inspiradas na álgebra relacional.
 
