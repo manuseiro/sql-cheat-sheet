@@ -2,10 +2,14 @@
 
 O SQL Basics Cheat Sheet fornece a sintaxe de todas as cláusulas básicas, mostra como escrever condições diferentes e tem exemplos.
 
-## SQL:
+## O que é SQL?:
 Structured Query Language, ou Linguagem de Consulta Estruturada ou SQL, é a linguagem de pesquisa declarativa padrão para banco de dados relacional. Muitas das características originais do SQL foram inspiradas na álgebra relacional.
 
-## Dados de Exemplo:
+Embora todas as linguagens SQL compartilhem uma estrutura básica, alguns dos comandos e estilos específicos podem diferir ligeiramente. Os dialetos populares incluem MySQL, SQLite, SQL Server, Oracle SQL e muito mais. O PostgreSQL é um bom lugar para começar
+— já que está próximo da sintaxe SQL padrão e é facilmente adaptável a outros dialetos.
+
+## Dados de amostra:
+Ao longo desta folha de dicas, usaremos as colunas listadas nas tabelas de amostra **`COUNTRY`** e **`CITY`**
 
 COUNTRY (País)
 | id | name | population | area |
@@ -25,7 +29,7 @@ CITY (Cidade)
 | 4 | Maranhão | 2 | 685000000 | 33 |
 | ... | ... | ... | ... | ... |
 
-## 1.1. CONSULTANDO UMA TABELA ÚNICA(QUERYING SINGLE TABLE)
+## CONSULTANDO UMA TABELA ÚNICA(QUERYING SINGLE TABLE)
 
 Consultar todas(`*`) as colunas da tabela de `COUNTRY`:
 ```bash
@@ -83,8 +87,9 @@ Resultado:
 | 4 | Maranhão | 
 | ... | ... | 
 
-## 1.2. APELIDOS (ALIASES)
+## APELIDOS (ALIASES)
 
+### Columns
 Consultar coluna **`NAME`** da tabela **`CITY`** com o apelido(AS) **`CITY_NAME`**:
 ```bash
 SELECT name AS city_name
@@ -99,6 +104,7 @@ Resultado:
 | 1 | Florença | 
 | ... | ... | 
 
+### Tables
 Consultar coluna **`NAME`** das tabelas **`CITY`** e **`COUNTRY`**, quando a coluna **`COUNTRY_ID`** da tabela **`COUNTRY`** retorna linhas que possuem valores correspondentes em ambas as tabelas. Neste exemplo as tabelas **`CITY`** e **`COUNTRY`** foram apelidadas de CI e CO respectivamente.
 ```bash
 SELECT co.name, ci.name
@@ -123,7 +129,7 @@ Resultado:
 
 _OBS: JOIN (ou explicitamente INNER JOIN) retorna linhas que possuem valores correspondentes em ambas as tabelas._
 
-## 1.3. FILTRANDO A SAÍDA (FILTERING THE OUTPUT)
+## FILTRANDO A SAÍDA (FILTERING THE OUTPUT)
 
 ### OPERADORES DE COMPARAÇÃO (COMPARISON OPERATORS)
 
@@ -203,7 +209,7 @@ WHERE country_id IN (1, 4, 7, 8);
 Segue algumas dicas para utilizar no SQL, Neste exemplo nossa tabela tem o nome de **`DISTRICT`**, view de `V` e Coluna de `C`:
 
 
-## 2. GERENCIANDO TABELAS (MANAGING TABLES)
+## GERENCIANDO TABELAS (MANAGING TABLES)
 
 Criar uma nova tabela chamada **`DISTRICT`** com três colunas (id, name, price)
 
@@ -270,7 +276,7 @@ Remover todos os dados da tabela **`DISTRICT`**
 TRUNCATE TABLE district
 ```
 
-## 3. GERENCIANDO GATILHOS(MANAGING TRIGGERS)
+## GERENCIANDO GATILHOS(MANAGING TRIGGERS)
 
 Criar ou modificar um gatilho(TRIGGER), neste exemplo o gatilho terá o nome de **`trigger_name`** 
 ```bash
@@ -302,7 +308,7 @@ Excluir um gatilho(TRIGGER) específico
 DROP TRIGGER trigger_name
 ```
 
-## 4. GERENCIANDO VIEWS(MANAGING VIEWS)
+## GERENCIANDO VIEWS(MANAGING VIEWS)
 Crie uma nova VIEW que consiste em cl e c2
 ```bash
 CREATE VIEW v(c1,c2) AS
@@ -333,7 +339,7 @@ Excluir uma VIEW
 ```bash
 DROP VIEW view_name
 ```
-## 5. MODIFICANDO DADOS (MODIFYING DATA)
+## MODIFICANDO DADOS (MODIFYING DATA)
 
 Inserir(INSERT) uma linha(ROW) na tabela(TABLE) **`DISTRICT`**
 ```bash
@@ -373,53 +379,184 @@ Delete subset of rows in a table
 DELETE FROM district
 WHERE condition;
 ```
-## 6. CONSULTANDO EM MÚLTIPLAS TABELAS (QUERYING FROM MULTIPLE TABLES)
+## CONSULTANDO EM MÚLTIPLAS TABELAS (QUERYING FROM MULTIPLE TABLES)
 
-Junção(JOIN) interna(INNER) Tl e T2
-
-SELECT cl, c2
-FROM districtl
-INNER JOIN t2 ON condition;
-
-Junção(JOIN) Esquerda(LEFT) Tl e Tl
+### INNER JOIN
+JOIN (ou explicitamente INNER JOIN) retorna linhas que possuem valores correspondentes em ambas as tabelas
 ```bash
-SELECT cl, C2
-FROM district1
-LEFT JOIN t2 ON condition;
+SELECT city.name, country.name
+FROM city
+[INNER] JOIN country
+ON city.country_id = country.id;
 ```
 
-Junção(JOIN) Direita(RIGHT) Tl E T2
+### LEFT JOIN
+LEFT JOIN retorna todas as linhas da tabela esquerda com linhas correspondentes da tabela à direita. Se não houver linha correspondente, NULLs são retornados como valores do segunda mesa.
 ```bash
-SELECT cl, c2
-FROM districtl
-RIGHT JOIN t2 ON condition;
+SELECT city.name, country.name
+FROM city
+LEFT JOIN country
+ON city.country_id = country.id;
+```
+### RIGHT JOIN
+RIGHT JOIN retorna todas as linhas da tabela da direita com linhas correspondentes da tabela à esquerda. Se não houver linha correspondente, NULLs são retornados como valores da esquerda tabela.
+```bash
+SELECT city.name, country.name
+FROM city
+RIGHT JOIN country
+ON city.country_id = country.id;
+```
+### FULL JOIN
+FULL JOIN (ou explicitamente FULL OUTER JOIN) retorna todos linhas de ambas as tabelas - se não houver nenhuma linha correspondente no segunda tabela, NULLs são retornados.
+```bash
+SELECT city.name, country.name
+FROM city
+FULL [OUTER] JOIN country
+ON city.country_id = country.id;
 ```
 
-Executar Junção(JOIN) externa(OUTER) completa(FULL)
+### CROSS JOIN
+CROSS JOIN retorna todas as combinações possíveis de linhas de ambas as tabelas. Existem duas sintaxes disponíveis.
 ```bash
-SELECT Cl, CZ
-FROM districtl
-FULL OUTER JOIN t2 ON condition;
-```
-
-Produzir um produto cartesiano de linhas em tabelas
-```bash
-SELECT cl, C2
-FROM districtl
-CROSS JOIN t2;
+SELECT city.name, country.name
+FROM city
+CROSS JOIN country;
 ```
 
 ```bash
-SELECT cl, c2
-FROM districtl, t2;
+SELECT city.name, country.name
+FROM city, country;
 ```
-Outra Maneira de Executar Junção(JOIN) Cruzada/Mistura(Cross)
+### NATURAL JOIN
+NATURAL JOIN unirá tabelas por todas as colunas com o mesmo nome.
 ```bash
-SELECT Cl, C2
-FROM districtl A
+SELECT city.name, country.name
+FROM city
+NATURAL JOIN country;
+```
+## AGREGAÇÃO E AGRUPAMENTO (AGGREGATION AND GROUPING)
+
+### GROUP BY
+GROUP BY agrupa linhas que possuem os mesmos valores em colunas especificadas.
+Ele calcula resumos (agregados) para cada combinação exclusiva de valores.
+
+#### CITY (Cidade)
+| id | name | country_id | 
+| :---: | :---: | :---: | 
+| 1 | Florença | 1 | 
+| 2 | Fortaleza | 2 | 
+| 3 | São Paulo | 2 | 
+| 4 | Maranhão | 2 |
+| 5 | Lyon | 3 | 
+| 6 | Berlin | 1 | 
+| 7 | Warsaw | 3 | 
+| ... | ... | ... |
+
+Agrupo todos os valores da coluna **`country_id`** agrupados em uma coluna chamada **`count`**.
+```bash
+SELECT country_id, COUNT(*) AS count 
+FROM city 
+GROUP BY country_id;
+```
+Resultado:
+| country_id | count | 
+| :---: | :---: |
+| 1 | 2 | 
+| 2 | 3 | 
+| 3 | 2 | 
+| ... | ... |
+
+### FUNÇÕES AGREGADAS (AGGREGATE FUNCTIONS)
+- avg(expr) − valor médio para linhas dentro do grupo
+- count(expr) − contagem de valores para linhas dentro do grupo
+- max(expr) − valor máximo dentro do grupo
+- min(expr) − valor mínimo dentro do grupo
+- sum(expr) − soma dos valores dentro do grupo
+
+Descubra o número de cidades:
+```bash
+SELECT COUNT(rating)
+FROM city;
+```
+Descubra o número de cidades com classificações não nulas:
+```bash
+SELECT COUNT(DISTINCT country_id)
+FROM city;
+```
+Descubra o número de valores de país distintos:
+```bash
+SELECT MIN(population), MAX(population)
+FROM country;
+```
+Descubra as menores e as maiores populações do país:
+```bash
+SELECT country_id, SUM(population)
+FROM city
+GROUP BY country_id;
+```
+Descubra a população total das cidades nos respectivos países:
+```bash
+SELECT country_id, AVG(rating)
+FROM city
+GROUP BY country_id
+HAVING AVG(rating) > 3.0;
+```
+## SUBCONSULTAS (SUBQUERIES)
+Uma subconsulta é uma consulta aninhada dentro de outra consulta ou dentro de outra subconsulta. Existem diferentes tipos de subconsultas.
+
+### SINGLE VALUE
+A subconsulta mais simples retorna exatamente uma coluna e exatamente uma linha. Pode ser usado com operadores de comparação =, <, <=, > ou >=.
+
+Esta consulta encontra cidades com a mesma classificação de Paris:
+```bash
+SELECT name 
+FROM city
+WHERE rating = (
+	SELECT rating
+	FROM city
+	WHERE name = 'Paris'
+);
+```
+### MULTIPLE VALUES
+Uma subconsulta também pode retornar várias colunas ou várias linhas. Essas subconsultas podem ser usadas com os operadores IN, EXISTS, ALL ou ANY.
+
+Esta consulta encontra cidades em países com população acima de 20 milhões:
+```bash
+SELECT name
+FROM city
+WHERE country_id IN (
+	SELECT country_id
+	FROM country
+	WHERE population > 20000000
+);
 ```
 
-## 6. USANDO RESTRIÇÕES SQL (USING SQL CONSTRAINTS)
+### CORRELATED
+Uma subconsulta correlacionada refere-se às tabelas introduzidas na consulta externa. Uma subconsulta correlacionada depende da consulta externa. Ele não pode ser executado independentemente da consulta externa.
+
+Esta consulta encontra cidades com uma população maior que a população média do país:
+```bash
+SELECT *
+FROM city main_city
+WHERE population > (
+	SELECT AVG(population)
+	FROM city average_city
+	WHERE average_city.country_id = main_city.country_id
+);
+```
+Esta consulta encontra países que possuem pelo menos uma cidade:
+```bash
+SELECT name
+FROM country
+WHERE EXISTS (
+	SELECT *
+	FROM city
+	WHERE country_id = country.id
+);
+```
+
+
+## USANDO RESTRIÇÕES SQL (USING SQL CONSTRAINTS)
 
 Definir C1 e CZ como chave-primária(primary-key)
 ```bash
@@ -457,7 +594,7 @@ cl INT PRIMARY KEY,
 c2 VARCHAR NOT NULL
 );
 ```
-## 7. USANDO OPERADORES SQL (USING SQL OPERATORS)
+## USANDO OPERADORES SQL (USING SQL OPERATORS)
 
 Combine Rows FROM districtwo Queries
 ```bash
@@ -501,4 +638,5 @@ WHERE cl IS [NOT] NULL;
 ## Referência
 
  - [W3Schools - SQL Tutorial](https://www.w3schools.com/sql)
- - [LearnSQL.com](https://learnsql.com/blog/sql-basics-cheat-sheet/sql-basics-cheat-sheet-a4.pdf)
+ - [SQL Basics Cheat Sheet - LearnSQL.com](https://learnsql.com/blog/sql-basics-cheat-sheet/)
+ - [SQL Basics Cheat Sheet - DataCamp](https://www.datacamp.com/cheat-sheet/sql-basics-cheat-sheet)
