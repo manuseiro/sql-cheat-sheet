@@ -382,7 +382,7 @@ WHERE condition;
 ## CONSULTANDO EM MÚLTIPLAS TABELAS (QUERYING FROM MULTIPLE TABLES)
 
 ### INNER JOIN
-JOIN (ou explicitamente INNER JOIN) retorna linhas que possuem valores correspondentes em ambas as tabelas
+JOIN (ou explicitamente INNER JOIN) retorna apenas as linhas das tabelas que têm correspondência na outra tabela. Em outras palavras, somente os registros que possuem valores correspondentes em ambas as tabelas são incluídos no resultado.
 ```bash
 SELECT city.name, country.name
 FROM city
@@ -407,7 +407,7 @@ RIGHT JOIN country
 ON city.country_id = country.id;
 ```
 ### FULL JOIN
-FULL JOIN (ou explicitamente FULL OUTER JOIN) retorna todos linhas de ambas as tabelas - se não houver nenhuma linha correspondente no segunda tabela, NULLs são retornados.
+FULL JOIN (ou explicitamente FULL OUTER JOIN) retorna todas as linhas de ambas as tabelas, incluindo registros que não têm correspondência na outra tabela. Quando um registro não possui correspondência na outra tabela, o valor para essa tabela é nulo. Em outras palavras, o resultado inclui todos os registros de ambas as tabelas, independentemente de haver correspondência ou não.
 ```bash
 SELECT city.name, country.name
 FROM city
@@ -416,7 +416,7 @@ ON city.country_id = country.id;
 ```
 
 ### CROSS JOIN
-CROSS JOIN retorna todas as combinações possíveis de linhas de ambas as tabelas. Existem duas sintaxes disponíveis.
+CROSS JOIN retorna o produto cartesiano de duas tabelas. Em outras palavras, ele combina cada linha da primeira tabela com todas as linhas da segunda tabela, sem levar em consideração qualquer condição de junção. Existem duas sintaxes disponíveis.
 ```bash
 SELECT city.name, country.name
 FROM city
@@ -428,7 +428,8 @@ SELECT city.name, country.name
 FROM city, country;
 ```
 ### NATURAL JOIN
-NATURAL JOIN unirá tabelas por todas as colunas com o mesmo nome.
+NATURAL JOIN combina duas tabelas usando todas as colunas com o mesmo nome automaticamente, sem precisar especificar as condições de junção explicitamente. Em outras palavras, o NATURAL JOIN compara as colunas de ambas as tabelas com o mesmo nome e retorna as linhas que têm valores iguais nessas colunas.
+
 ```bash
 SELECT city.name, country.name
 FROM city
