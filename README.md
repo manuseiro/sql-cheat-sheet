@@ -32,7 +32,7 @@ CITY (Cidade)
 ## CONSULTANDO UMA TABELA ÚNICA(QUERYING SINGLE TABLE)
 
 Consultar todas(`*`) as colunas da tabela de `COUNTRY`:
-```bash
+```sql
 SELECT *
 FROM country;
 ```
@@ -45,7 +45,7 @@ Resultado:
 | 4 | Argentina | 36260130 | 2780400 |
 
 Consultar as colunas `ID` e **`NAME`** da tabela **`CITY`**:
-```bash
+```sql
 SELECT id, name
 FROM city;
 ```
@@ -59,7 +59,7 @@ Resultado:
 | ... | ... |
 
 Consultar os **`NAME`** das **`CITY`** classificados pela coluna **`RATING`** na ordem Crescente (ASC):
-```bash
+```sql
 SELECT name
 FROM city
 ORDER BY rating [ASC];
@@ -73,7 +73,7 @@ Resultado:
 | Maranhão | 33 |
 
 Consultar os **`NAME`** das **`CITY`** classificados pela coluna **`RATING`** na ordem Decrescente (DESC):
-```bash
+```sql
 SELECT name
 FROM city
 ORDER BY rating DESC;
@@ -89,12 +89,16 @@ Resultado:
 
 ## APELIDOS (ALIASES)
 
-### Columns
+### Exemplo em Colunas
+Um alias ou apelido é um nome alternativo que pode ser atribuído a uma tabela ou a uma coluna em uma consulta. Isso pode ser útil para simplificar a consulta, melhorar a legibilidade do código ou evitar conflitos de nome.
+
 Consultar coluna **`NAME`** da tabela **`CITY`** com o apelido(AS) **`CITY_NAME`**:
-```bash
+```sql
 SELECT name AS city_name
 FROM city;
 ```
+Agora, ao invés de retornar a coluna "name" com o nome original, a consulta retorna a mesma coluna com o apelido "city_name". Esse apelido pode ser usado para se referir à coluna em outras partes da consulta, como em cláusulas WHERE ou em outras junções.
+
 Resultado:
 | id | city_name |
 | :---: | :---: | 
@@ -104,9 +108,9 @@ Resultado:
 | 1 | Florença | 
 | ... | ... | 
 
-### Tables
+### Exemplo em Tabelas
 Consultar coluna **`NAME`** das tabelas **`CITY`** e **`COUNTRY`**, quando a coluna **`COUNTRY_ID`** da tabela **`COUNTRY`** retorna linhas que possuem valores correspondentes em ambas as tabelas. Neste exemplo as tabelas **`CITY`** e **`COUNTRY`** foram apelidadas de CI e CO respectivamente.
-```bash
+```sql
 SELECT co.name, ci.name
 FROM city AS ci
 JOIN country AS co
@@ -134,7 +138,7 @@ _OBS: JOIN (ou explicitamente INNER JOIN) retorna linhas que possuem valores cor
 ### OPERADORES DE COMPARAÇÃO (COMPARISON OPERATORS)
 
 Consultar **`NAME`** da **`CITY`** com **`RATING`** acima de 3
-```bash
+```sql
 SELECT name
 FROM city
 WHERE rating > 3;
@@ -146,7 +150,7 @@ Resultado:
 | Maranhão |
 
 Consultar **`NAME`** de **`CITY`** diferente de `FLORENÇA` e `FORTALEZA`
-```bash
+```sql
 SELECT name
 FROM city
 WHERE name != 'Florença'
@@ -161,7 +165,7 @@ Resultado:
 ### OPERADORES DE TEXTO (TEXT OPERATORS)
 
 Consultar **`NAME`** de **`CITY`** que começam com 'f' ou terminam com 'a':
-```bash
+```sql
 SELECT name
 FROM city
 WHERE name LIKE 'f%'
@@ -174,7 +178,7 @@ Resultado:
 | 2 | Fortaleza |
 
 Consultar **`NAME`** de **`CITY`** que começe com qualquer letra seguida por 'ortaleza':
-```bash
+```sql
 SELECT name
 FROM city
 WHERE name LIKE '_ortaleza';
@@ -187,19 +191,19 @@ Resultado:
 ### OUTROS OPERADORES (OTHER OPERATORS)
 
 Consultar **`NAME`** de **`CITY`** com `POPULATION` entre(between) 500K e 5M:
-```bash
+```sql
 SELECT name
 FROM city
 WHERE population BETWEEN 500000 AND 5000000;
 ```
 Consultar **`NAME`** de **`CITY`** que não possuem um valor de **`RATING`**:
-```bash
+```sql
 SELECT name
 FROM city
 WHERE rating IS NOT NULL;
 ```
 Consultar **`NAME`** de **`CITY`** que estão em `COUNTRY` com `IDs` 1, 4, 7 ou 8:
-```bash
+```sql
 SELECT name
 FROM city
 WHERE country_id IN (1, 4, 7, 8);
@@ -213,7 +217,7 @@ Segue algumas dicas para utilizar no SQL, Neste exemplo nossa tabela tem o nome 
 
 Criar uma nova tabela chamada **`DISTRICT`** com três colunas (id, name, price)
 
-```bash
+```sql
 CREATE TABLE district (id INT PRIMARY KEY, name VARCHAR NOT NULL,price INT DEFAULT 0)
 ```
 Resultado ao criar tabela **`DISTRICT`** (Bairro):
@@ -224,13 +228,13 @@ Resultado ao criar tabela **`DISTRICT`** (Bairro):
 
 Excluir a tabela **`DISTRICT`** do banco de dados
 
-```bash
+```sql
 DROP TABLE district
 ```
 
 Adicionar uma nova coluna `WEALTH` à tabela **`DISTRICT`**
 
-```bash
+```sql
 ALTER TABLE district ADD COLUMN wealth
 ```
 Resultado:
@@ -245,41 +249,41 @@ Resultado:
 | :---: | :---: | :---: |
 | 1 | ... | 0 |
 
-```bash
+```sql
 ALTER TABLE district DROP COLUMN wealth
 ```
 
 Adicionar uma restrição(`CONSTRAINT`)
-```bash
+```sql
 ALTER TABLE district ADD constraint
 ```
 OBS: As restrições(CONSTRAINT) podem ser especificadas quando a tabela é criada com a instrução CREATE TABLE ou depois que a tabela é criada com a instrução ALTER TABLE.
 
 Excluir uma restrição(CONSTRAINT)
 
-```bash
+```sql
 ALTER TABLE district DROP constraint
 ```
 
 Renomear tabela "district1" para "T2"
-```bash
+```sql
 ALTER TABLE district1 REMANE TO t2
 ```
 
 Renomear Coluna "C1" para "C2" da tabela "district1"
-```bash
+```sql
 ALTER TABLE district1 RENANE cl TO c2
 ```
 
 Remover todos os dados da tabela **`DISTRICT`**
-```bash
+```sql
 TRUNCATE TABLE district
 ```
 
 ## GERENCIANDO GATILHOS(MANAGING TRIGGERS)
 
 Criar ou modificar um gatilho(TRIGGER), neste exemplo o gatilho terá o nome de **`trigger_name`** 
-```bash
+```sql
 CREATE OR MODIFY TRIGGER trigger_name
 WHEN EVENT
 ON table_nane TRIGGER TYPE
@@ -297,32 +301,32 @@ TRIGGER_TYPE
 - FOR EACH STATEMENT
 
 Crie um gatilho(TRIGGER) invocado antes que uma nova linha seja inserida na person table
-```bash
+```sql
 CREATE TRIGGER
 BEFORE INSERT
 ON person FOR EACH ROW
 EXECUTE stored_procedure ;
 ```
 Excluir um gatilho(TRIGGER) específico
-```bash
+```sql
 DROP TRIGGER trigger_name
 ```
 
 ## GERENCIANDO VIEWS(MANAGING VIEWS)
 Crie uma nova VIEW que consiste em cl e c2
-```bash
+```sql
 CREATE VIEW v(c1,c2) AS
 SELECT cl, c2
 FROM district
 ```
 Crie uma nova VIEW com a opção de verificação
-```bash
+```sql
 CREATE VIEW v(c1,c2) AS
 SELECT Cl, C2
 FROM district
 ```
 Criar uma VIEW recursiva
-```bash
+```sql
 WITH [CASCADED | LOCAL] CHECK OPTION
 CREATE RECURSIVE VIEW v AS
 select-statement —- anchor part
@@ -330,52 +334,52 @@ UNION [ALL]
 select-statement —- recursive part
 ```
 Criar uma VIEW temporária
-```bash
+```sql
 CREATE TEMPORARY VIEW v AS
 SELECT cl, C2
 FROM district
 ```
 Excluir uma VIEW
-```bash
+```sql
 DROP VIEW view_name
 ```
 ## MODIFICANDO DADOS (MODIFYING DATA)
 
 Inserir(INSERT) uma linha(ROW) na tabela(TABLE) **`DISTRICT`**
-```bash
+```sql
 INSERT INTO district(column_list)
 VALUES( value_list);
 ```
 Inserir várias linhas(ROWS) na tabela(TABLE) **`DISTRICT`**:
-```bash
+```sql
 INSERT INTO district(column_list)
 VALUES 	(vatue_list),
 		(vatue_list), ....;
 ```
 Inserir linhas(ROWS) da tabela(TABLE) `district2` no **`district1`**:
-```bash
+```sql
 INSERT INTO district1(column_list)
 SELECT column_list 
 	FROM district2;
 ```
 Update new value in the column cl for all rows
-```bash
+```sql
 UPDATE district
 SET cl = new_value;
 ```
 Update values in the column cl, c2 that match the condition
-```bash
+```sql
 UPDATE district
 SET	cI = new_value,
 	c2 = new_value
 WHERE condition;
 ```
 Delete all data in a table
-```bash
+```sql
 DELETE FROM district;
 ```
 Delete subset of rows in a table
-```bash
+```sql
 DELETE FROM district
 WHERE condition;
 ```
@@ -383,7 +387,7 @@ WHERE condition;
 
 ### INNER JOIN
 JOIN (ou explicitamente INNER JOIN) retorna apenas as linhas das tabelas que têm correspondência na outra tabela. Em outras palavras, somente os registros que possuem valores correspondentes em ambas as tabelas são incluídos no resultado.
-```bash
+```sql
 SELECT city.name, country.name
 FROM city
 [INNER] JOIN country
@@ -392,7 +396,7 @@ ON city.country_id = country.id;
 
 ### LEFT JOIN
 LEFT JOIN retorna todas as linhas da tabela esquerda com linhas correspondentes da tabela à direita. Se não houver linha correspondente, NULLs são retornados como valores do segunda mesa.
-```bash
+```sql
 SELECT city.name, country.name
 FROM city
 LEFT JOIN country
@@ -400,7 +404,7 @@ ON city.country_id = country.id;
 ```
 ### RIGHT JOIN
 RIGHT JOIN retorna todas as linhas da tabela da direita com linhas correspondentes da tabela à esquerda. Se não houver linha correspondente, NULLs são retornados como valores da esquerda tabela.
-```bash
+```sql
 SELECT city.name, country.name
 FROM city
 RIGHT JOIN country
@@ -408,7 +412,7 @@ ON city.country_id = country.id;
 ```
 ### FULL JOIN
 FULL JOIN (ou explicitamente FULL OUTER JOIN) retorna todas as linhas de ambas as tabelas, incluindo registros que não têm correspondência na outra tabela. Quando um registro não possui correspondência na outra tabela, o valor para essa tabela é nulo. Em outras palavras, o resultado inclui todos os registros de ambas as tabelas, independentemente de haver correspondência ou não.
-```bash
+```sql
 SELECT city.name, country.name
 FROM city
 FULL [OUTER] JOIN country
@@ -417,20 +421,20 @@ ON city.country_id = country.id;
 
 ### CROSS JOIN
 CROSS JOIN retorna o produto cartesiano de duas tabelas. Em outras palavras, ele combina cada linha da primeira tabela com todas as linhas da segunda tabela, sem levar em consideração qualquer condição de junção. Existem duas sintaxes disponíveis.
-```bash
+```sql
 SELECT city.name, country.name
 FROM city
 CROSS JOIN country;
 ```
 
-```bash
+```sql
 SELECT city.name, country.name
 FROM city, country;
 ```
 ### NATURAL JOIN
 NATURAL JOIN combina duas tabelas usando todas as colunas com o mesmo nome automaticamente, sem precisar especificar as condições de junção explicitamente. Em outras palavras, o NATURAL JOIN compara as colunas de ambas as tabelas com o mesmo nome e retorna as linhas que têm valores iguais nessas colunas.
 
-```bash
+```sql
 SELECT city.name, country.name
 FROM city
 NATURAL JOIN country;
@@ -454,7 +458,7 @@ Ele calcula resumos (agregados) para cada combinação exclusiva de valores.
 | ... | ... | ... |
 
 Agrupo todos os valores da coluna **`country_id`** agrupados em uma coluna chamada **`count`**.
-```bash
+```sql
 SELECT country_id, COUNT(*) AS count 
 FROM city 
 GROUP BY country_id;
@@ -475,28 +479,28 @@ Resultado:
 - sum(expr) − soma dos valores dentro do grupo
 
 Descubra o número de cidades:
-```bash
+```sql
 SELECT COUNT(rating)
 FROM city;
 ```
 Descubra o número de cidades com classificações não nulas:
-```bash
+```sql
 SELECT COUNT(DISTINCT country_id)
 FROM city;
 ```
 Descubra o número de valores de país distintos:
-```bash
+```sql
 SELECT MIN(population), MAX(population)
 FROM country;
 ```
 Descubra as menores e as maiores populações do país:
-```bash
+```sql
 SELECT country_id, SUM(population)
 FROM city
 GROUP BY country_id;
 ```
 Descubra a população total das cidades nos respectivos países:
-```bash
+```sql
 SELECT country_id, AVG(rating)
 FROM city
 GROUP BY country_id
@@ -509,7 +513,7 @@ Uma subconsulta é uma consulta aninhada dentro de outra consulta ou dentro de o
 A subconsulta mais simples retorna exatamente uma coluna e exatamente uma linha. Pode ser usado com operadores de comparação =, <, <=, > ou >=.
 
 Esta consulta encontra cidades com a mesma classificação de Paris:
-```bash
+```sql
 SELECT name 
 FROM city
 WHERE rating = (
@@ -522,7 +526,7 @@ WHERE rating = (
 Uma subconsulta também pode retornar várias colunas ou várias linhas. Essas subconsultas podem ser usadas com os operadores IN, EXISTS, ALL ou ANY.
 
 Esta consulta encontra cidades em países com população acima de 20 milhões:
-```bash
+```sql
 SELECT name
 FROM city
 WHERE country_id IN (
@@ -536,7 +540,7 @@ WHERE country_id IN (
 Uma subconsulta correlacionada refere-se às tabelas introduzidas na consulta externa. Uma subconsulta correlacionada depende da consulta externa. Ele não pode ser executado independentemente da consulta externa.
 
 Esta consulta encontra cidades com uma população maior que a população média do país:
-```bash
+```sql
 SELECT *
 FROM city main_city
 WHERE population > (
@@ -546,7 +550,7 @@ WHERE population > (
 );
 ```
 Esta consulta encontra países que possuem pelo menos uma cidade:
-```bash
+```sql
 SELECT name
 FROM country
 WHERE EXISTS (
@@ -560,14 +564,14 @@ WHERE EXISTS (
 ## USANDO RESTRIÇÕES SQL (USING SQL CONSTRAINTS)
 
 Definir C1 e CZ como chave-primária(primary-key)
-```bash
+```sql
 CREATE TABLE t(
 	cl INT, C2 INT, C3 VARCHAR,
 	PRIMARY KEY (cl,c2)
 );
 ```
 Defina a coluna c2 como uma chave-estrangeira(foreign-key)
-```bash
+```sql
 CREATE TABLE district1(
 Cl INT PRIMARY KEY,
 C2 INT,
@@ -575,21 +579,21 @@ FOREIGN KEY (c2) REFERENCES t2(c2)
 );
 ```
 Torne os valores em cl e c2 exclusivos(UNIQUE)
-```bash
+```sql
 CREATE TABLE t(
 cl INT, cl INT,
 UNIQUE(c2, c3)
 );
 ```
 Certifique-se de que cl > 0 e valores em cl>=c2
-```bash
+```sql
 CREATE TABLE t(
 cl INT, c2 INT,
 CHECK(c1> 0 AND cl >= c2)
 );
 ```
 Definir valores na coluna c2 não é nulo (NOT NULL)
-```bash
+```sql
 CREATE TABLE t(
 cl INT PRIMARY KEY,
 c2 VARCHAR NOT NULL
@@ -598,40 +602,40 @@ c2 VARCHAR NOT NULL
 ## USANDO OPERADORES SQL (USING SQL OPERATORS)
 
 Combine Rows FROM districtwo Queries
-```bash
+```sql
 SELECT cl, C2 FROM districtl
 UNION [ALL]
 SELECT Cl, C2 FROM district2;
 ```
 Return The Intersection Of TWO Queries
-```bash
+```sql
 SELECT cl, c2 FROM districdistrict1
 INTERSECT
 SELECT Cl, C2 FROM district2;
 ```
 Subtract A Result Set From Another Result Set
-```bash
+```sql
 SELECT cl, c2 FROM districtl
 MINUS
 SELECT cl, C2 FROM district2;
 ```
 Query Rows Using Pattern Matching _
-```bash
+```sql
 SELECT cl, c2 FROM districtl
 WHERE Cl [NOT] LIKE pattern;
 ```
 Query Rows In A List
-```bash
+```sql
 SELECT Cl, c2 FROM district
 WHERE cl [NOT] IN value_list;
 ```
 Query Rows Between Two Values
-```bash
+```sql
 SELECT cl, c2 FROM district
 WHERE cl BETWEEN low AND high;
 ```
 Check If Values In A Table IS NULL Or Not
-```bash
+```sql
 SELECT cl, C2 FROM district
 WHERE cl IS [NOT] NULL;
 ```
