@@ -59,7 +59,7 @@ Resultado:
 
 Consultar os **`NAME`** das **`CITY`** classificados pela coluna **`RATING`** na ordem Crescente (ASC):
 ```sql
-SELECT name
+SELECT name, rating
 FROM city
 ORDER BY rating [ASC];
 ```
@@ -73,25 +73,25 @@ Resultado:
 
 Consultar os **`NAME`** das **`CITY`** classificados pela coluna **`RATING`** na ordem Decrescente (DESC):
 ```sql
-SELECT name
+SELECT name, rating
 FROM city
 ORDER BY rating DESC;
 ```
 Resultado:
-| id | name |
-| :---: | :---: | 
-| 1 | Florença | 
-| 2 | Fortaleza | 
-| 3 | São Paulo | 
-| 4 | Maranhão | 
-| ... | ... | 
+| name | rating |
+| :---: | :---: |
+| Maranhão | 33 |
+| Fortaleza | 5 |
+| Florença| 3 |
+| São Paulo | 1 |
 
 ## APELIDOS (ALIASES)
 
 ### Exemplo em Colunas
 Um alias ou apelido é um nome alternativo que pode ser atribuído a uma tabela ou a uma coluna em uma consulta. Isso pode ser útil para simplificar a consulta, melhorar a legibilidade do código ou evitar conflitos de nome.
 
-Consultar coluna **`NAME`** da tabela **`CITY`** com o apelido(AS) **`CITY_NAME`**:
+Exemplo de consulta utilizando alias na coluna NAME da tabela CITY, com o apelido (AS) CITY_NAME:
+
 ```sql
 SELECT name AS city_name
 FROM city;
