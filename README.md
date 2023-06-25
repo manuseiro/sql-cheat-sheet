@@ -235,7 +235,19 @@ ALTER TABLE district ADD COLUMN wealth
 Resultado:
 | id | name | price | wealth |
 | :---: | :---: | :---: | :---: |
-| 1 | ... | 0 | 1000000 |
+
+Para inserir os dados na tabela **`DISTRICT`**, você pode usar a seguinte consulta:
+A nova linha foi adicionada à tabela district com o id igual a 1, o name igual a "Fortaleza", o price igual a 2000000 e o wealth igual a 4000000000.
+
+```sql
+INSERT INTO district (name, price, wealth) VALUES ('Fortaleza', 2000000, 4000000000);
+```
+Resultado:
+| id | name | price | wealth |
+| :---: | :---: | :---: | :---: |
+| 1 | Fortaleza | 2000000 | 4000000000 |
+
+
 
 Excluir coluna `WEALTH` da tabela **`DISTRICT`**
 
