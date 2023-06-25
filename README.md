@@ -395,6 +395,24 @@ WHERE condition;
 ```
 ## CONSULTANDO EM MÚLTIPLAS TABELAS (QUERYING FROM MULTIPLE TABLES)
 
+Tabela COUNTRY (País)
+| id | name |
+| :---: | :---: |
+| 1 | Italia |
+| 2 | Brazil |
+| 3 | Estados Unidads |
+| 4 | Argentina |
+| ... | ... |
+
+Tabela CITY (Cidade)
+| id | name | country_id | population | rating |
+| :---: | :---: | :---: |
+| 1 | Florença | 1 |
+| 2 | Fortaleza | 2 |
+| 3 | São Paulo | 2 |
+| 4 | Maranhão | 2 |
+| ... | ... | ... |
+
 ### INNER JOIN
 JOIN (ou explicitamente INNER JOIN) retorna apenas as linhas das tabelas que têm correspondência na outra tabela. Em outras palavras, somente os registros que possuem valores correspondentes em ambas as tabelas são incluídos no resultado.
 ```sql
