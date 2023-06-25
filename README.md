@@ -405,7 +405,7 @@ Tabela COUNTRY (País)
 | ... | ... |
 
 Tabela CITY (Cidade)
-| id | name | country_id | population | rating |
+| id | name | country_id |
 | :---: | :---: | :---: |
 | 1 | Florença | 1 |
 | 2 | Fortaleza | 2 |
@@ -421,6 +421,14 @@ FROM city
 [INNER] JOIN country
 ON city.country_id = country.id;
 ```
+Resultado:
+| city.name | country.name |
+| :---: | :---: |
+| Florença | Italia |
+| Fortaleza | Brazil |
+| São Paulo | Brazil |
+| Maranhão | Brazil |
+| ... | ... |
 
 ### LEFT JOIN
 LEFT JOIN retorna todas as linhas da tabela esquerda com linhas correspondentes da tabela à direita. Se não houver linha correspondente, NULLs são retornados como valores do segunda mesa.
