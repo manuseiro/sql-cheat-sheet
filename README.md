@@ -96,7 +96,7 @@ Exemplo de consulta utilizando alias na coluna NAME da tabela CITY, com o apelid
 SELECT name AS city_name
 FROM city;
 ```
-Agora, ao invés de retornar a coluna "name" com o nome original, a consulta retorna a mesma coluna com o apelido "city_name". Esse apelido pode ser usado para se referir à coluna em outras partes da consulta, como em cláusulas WHERE ou em outras junções.
+Neste exemplo, em vez de retornar a coluna "name" com o nome original, a consulta retorna a mesma coluna com o apelido "city_name". Esse apelido pode ser usado para se referir à coluna em outras partes da consulta, como em cláusulas WHERE ou em outras junções.
 
 Resultado:
 | id | city_name |
@@ -108,13 +108,18 @@ Resultado:
 | ... | ... | 
 
 ### Exemplo em Tabelas
-Consultar coluna **`NAME`** das tabelas **`CITY`** e **`COUNTRY`**, quando a coluna **`COUNTRY_ID`** da tabela **`COUNTRY`** retorna linhas que possuem valores correspondentes em ambas as tabelas. Neste exemplo as tabelas **`CITY`** e **`COUNTRY`** foram apelidadas de CI e CO respectivamente.
+Outra forma de utilizar aliases é atribuir apelidos às tabelas em uma consulta.
+
+Exemplo de consulta utilizando alias nas tabelas CITY e COUNTRY, com os apelidos CI e CO, respectivamente:
 ```sql
 SELECT co.name, ci.name
 FROM city AS ci
 JOIN country AS co
   ON ci.country_id = co.id;
 ```
+
+Neste exemplo, as tabelas CITY e COUNTRY foram apelidadas de CI e CO, respectivamente. Isso permite referenciar as tabelas de forma mais concisa na consulta. A junção é realizada comparando os valores das colunas COUNTRY_ID da tabela CI (apelido para CITY) e ID da tabela CO (apelido para COUNTRY).
+
 Resultado:
 | id | name | population | area |
 | :---: | :---: | :---: | :---: |
@@ -127,8 +132,6 @@ Resultado:
 | 2 | Fortaleza | 2 | 26800000 | 5 |
 | 3 | São Paulo | 2 | 12300000 | 1 |
 | 4 | Maranhão | 2 | 685000000 | 33 |
-
-
 
 _OBS: JOIN (ou explicitamente INNER JOIN) retorna linhas que possuem valores correspondentes em ambas as tabelas._
 
@@ -208,30 +211,23 @@ FROM city
 WHERE country_id IN (1, 4, 7, 8);
 ```
 
-
-Segue algumas dicas para utilizar no SQL, Neste exemplo nossa tabela tem o nome de **`DISTRICT`**, view de `V` e Coluna de `C`:
-
-
 ## GERENCIANDO TABELAS (MANAGING TABLES)
 
-Criar uma nova tabela chamada **`DISTRICT`** com três colunas (id, name, price)
+Aqui estão algumas dicas para usar no SQL com uma tabela chamada DISTRICT, uma visualização representada por V e uma coluna representada por C:
+
+Criar uma nova tabela chamada DISTRICT com três colunas (id, name, price):
 
 ```sql
 CREATE TABLE district (id INT PRIMARY KEY, name VARCHAR NOT NULL,price INT DEFAULT 0)
 ```
-Resultado ao criar tabela **`DISTRICT`** (Bairro):
+Resultado após criar a tabela DISTRICT (Bairro):
 
 | id | name | price |
 | :---: | :---: | :---: |
-| 1 | ... | 0 | 
 
-Excluir a tabela **`DISTRICT`** do banco de dados
+OBS: Os valores para id, name e price devem ser inseridos nas respectivas colunas da tabela.
 
-```sql
-DROP TABLE district
-```
-
-Adicionar uma nova coluna `WEALTH` à tabela **`DISTRICT`**
+Para adicionar uma nova coluna chamada `WEALTH` à tabela **`DISTRICT`**, você pode usar a seguinte consulta:
 
 ```sql
 ALTER TABLE district ADD COLUMN wealth
@@ -277,6 +273,12 @@ ALTER TABLE district1 RENANE cl TO c2
 Remover todos os dados da tabela **`DISTRICT`**
 ```sql
 TRUNCATE TABLE district
+```
+
+Excluir a tabela **`DISTRICT`** do banco de dados
+
+```sql
+DROP TABLE district
 ```
 
 ## GERENCIANDO GATILHOS(MANAGING TRIGGERS)
