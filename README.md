@@ -1,17 +1,16 @@
 # SQL Basics Cheat Sheet
 
-O SQL Basics Cheat Sheet fornece a sintaxe de todas as cláusulas básicas, mostra como escrever condições diferentes e tem exemplos.
+O Resumo de Conceitos Básicos de SQL fornece a sintaxe de todas as cláusulas básicas, demonstra como escrever diferentes condições e inclui exemplos.
 
 ## O que é SQL?:
-Structured Query Language, ou Linguagem de Consulta Estruturada ou SQL, é a linguagem de pesquisa declarativa padrão para banco de dados relacional. Muitas das características originais do SQL foram inspiradas na álgebra relacional.
+Structured Query Language, ou SQL, é a linguagem declarativa de consulta padrão para bancos de dados relacionais. Muitos dos recursos originais do SQL foram inspirados pela álgebra relacional.
 
-Embora todas as linguagens SQL compartilhem uma estrutura básica, alguns dos comandos e estilos específicos podem diferir ligeiramente. Os dialetos populares incluem MySQL, SQLite, SQL Server, Oracle SQL e muito mais. O PostgreSQL é um bom lugar para começar
-— já que está próximo da sintaxe SQL padrão e é facilmente adaptável a outros dialetos.
+Embora todas as linguagens SQL compartilhem uma estrutura básica, alguns comandos e estilos específicos podem diferir ligeiramente. Dialectos populares incluem MySQL, SQLite, SQL Server, Oracle SQL, entre outros. O PostgreSQL é um bom ponto de partida, pois está próximo da sintaxe SQL padrão e pode ser facilmente adaptado para outros dialetos.
 
-## Dados de amostra:
-Ao longo desta folha de dicas, usaremos as colunas listadas nas tabelas de amostra **`COUNTRY`** e **`CITY`**
+## Dados de Exemplo:
+Ao longo deste resumo, usaremos as colunas listadas nas tabelas de exemplo **`COUNTRY`** e **`CITY`**
 
-COUNTRY (País)
+Tabela COUNTRY (País)
 | id | name | population | area |
 | :---: | :---: | :---: | :---: |
 | 1 | Italia | 66600000 | 640000 |
@@ -20,7 +19,7 @@ COUNTRY (País)
 | 4 | Argentina | 36260130 | 2780400 |
 | ... | ... | ... | ... |
 
-CITY (Cidade)
+Tabela CITY (Cidade)
 | id | name | country_id | population | rating |
 | :---: | :---: | :---: | :---: | :---: |
 | 1 | Florença | 1 | 22400000 | 3 |
@@ -31,7 +30,7 @@ CITY (Cidade)
 
 ## CONSULTANDO UMA TABELA ÚNICA(QUERYING SINGLE TABLE)
 
-Consultar todas(`*`) as colunas da tabela de `COUNTRY`:
+Consultar todas(`*`) as colunas da tabela `COUNTRY`:
 ```sql
 SELECT *
 FROM country;
