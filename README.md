@@ -139,7 +139,7 @@ _OBS: JOIN (ou explicitamente INNER JOIN) retorna linhas que possuem valores cor
 
 ### OPERADORES DE COMPARAÇÃO (COMPARISON OPERATORS)
 
-Consultar **`NAME`** da **`CITY`** com **`RATING`** acima de 3
+a) Consultar **`NAME`** da **`CITY`** com **`RATING`** acima de 3
 ```sql
 SELECT name
 FROM city
@@ -151,7 +151,7 @@ Resultado:
 | Fortaleza |
 | Maranhão |
 
-Consultar **`NAME`** de **`CITY`** diferente de `FLORENÇA` e `FORTALEZA`
+b) Consultar **`NAME`** de **`CITY`** diferente de `FLORENÇA` e `FORTALEZA`
 ```sql
 SELECT name
 FROM city
@@ -166,7 +166,7 @@ Resultado:
 
 ### OPERADORES DE TEXTO (TEXT OPERATORS)
 
-Consultar **`NAME`** de **`CITY`** que começam com 'f' ou terminam com 'a':
+a) Consultar **`NAME`** de **`CITY`** que começam com 'f' ou terminam com 'a':
 ```sql
 SELECT name
 FROM city
@@ -179,7 +179,7 @@ Resultado:
 | 1 | Florença |
 | 2 | Fortaleza |
 
-Consultar **`NAME`** de **`CITY`** que começe com qualquer letra seguida por 'ortaleza':
+b) Consultar **`NAME`** de **`CITY`** que começe com qualquer letra seguida por 'ortaleza':
 ```sql
 SELECT name
 FROM city
@@ -192,19 +192,19 @@ Resultado:
 
 ### OUTROS OPERADORES (OTHER OPERATORS)
 
-Consultar **`NAME`** de **`CITY`** com `POPULATION` entre(between) 500K e 5M:
+a) Consultar **`NAME`** de **`CITY`** com `POPULATION` entre(between) 500K e 5M:
 ```sql
 SELECT name
 FROM city
 WHERE population BETWEEN 500000 AND 5000000;
 ```
-Consultar **`NAME`** de **`CITY`** que não possuem um valor de **`RATING`**:
+b) Consultar **`NAME`** de **`CITY`** que não possuem um valor de **`RATING`**:
 ```sql
 SELECT name
 FROM city
 WHERE rating IS NOT NULL;
 ```
-Consultar **`NAME`** de **`CITY`** que estão em `COUNTRY` com `IDs` 1, 4, 7 ou 8:
+c) Consultar **`NAME`** de **`CITY`** que estão em `COUNTRY` com `IDs` 1, 4, 7 ou 8:
 ```sql
 SELECT name
 FROM city
@@ -215,7 +215,7 @@ WHERE country_id IN (1, 4, 7, 8);
 
 Aqui estão algumas dicas para usar no SQL com uma tabela chamada DISTRICT, uma visualização representada por V e uma coluna representada por C:
 
-Criar uma nova tabela chamada DISTRICT com três colunas (id, name, price):
+a) Criar uma nova tabela chamada DISTRICT com três colunas (id, name, price):
 
 ```sql
 CREATE TABLE district (id INT PRIMARY KEY, name VARCHAR NOT NULL,price INT DEFAULT 0)
@@ -227,7 +227,7 @@ Resultado após criar a tabela DISTRICT (Bairro):
 
 OBS: Os valores para id, name e price devem ser inseridos nas respectivas colunas da tabela.
 
-Para adicionar uma nova coluna chamada `WEALTH` à tabela **`DISTRICT`**, você pode usar a seguinte consulta:
+b) Para adicionar uma nova coluna chamada `WEALTH` à tabela **`DISTRICT`**, você pode usar a seguinte consulta:
 
 ```sql
 ALTER TABLE district ADD COLUMN wealth
@@ -236,7 +236,7 @@ Resultado:
 | id | name | price | wealth |
 | :---: | :---: | :---: | :---: |
 
-Para inserir os dados na tabela **`DISTRICT`**, você pode usar a seguinte consulta:
+c) Para inserir os dados na tabela **`DISTRICT`**, você pode usar a seguinte consulta:
 A nova linha foi adicionada à tabela district com o id igual a 1, o name igual a "Fortaleza", o price igual a 2000000 e o wealth igual a 4000000000.
 
 ```sql
@@ -247,18 +247,15 @@ Resultado:
 | :---: | :---: | :---: | :---: |
 | 1 | Fortaleza | 2000000 | 4000000000 |
 
-
-
-Excluir coluna `WEALTH` da tabela **`DISTRICT`**
-
-Resultado:
-| id | name | price |
-| :---: | :---: | :---: |
-| 1 | ... | 0 |
+d) Excluir coluna `WEALTH` da tabela **`DISTRICT`**
 
 ```sql
 ALTER TABLE district DROP COLUMN wealth
 ```
+Resultado:
+| id | name | price |
+| :---: | :---: | :---: |
+| 1 | Fortaleza | 2000000 |
 
 Adicionar uma restrição(`CONSTRAINT`)
 ```sql
