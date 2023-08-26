@@ -264,7 +264,7 @@ Operadores Bitwise são muito menos usados em SQL do que outros tipos de operado
 
 *Lembre-se de que o tipo de dados do resultado depende dos tipos dos operandos.*
 
-## Tabelas usadas nos exemplos:
+## Tabelas para Exemplos de uso:
 **`COUNTRY`** e **`CITY`**
 
 |Tabela COUNTRY (País)|
