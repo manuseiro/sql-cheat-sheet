@@ -7,10 +7,10 @@ Structured Query Language, ou SQL, é a linguagem declarativa de consulta padrã
 
 Embora todas as linguagens SQL compartilhem uma estrutura básica, alguns comandos e estilos específicos podem diferir ligeiramente. Dialectos populares incluem MySQL, SQLite, SQL Server, Oracle SQL, entre outros. O PostgreSQL é um bom ponto de partida, pois está próximo da sintaxe SQL padrão e pode ser facilmente adaptado para outros dialetos.
 
-## COMPONENTES
+## Componentes
 SQL consiste em vários componentes, cada um servindo a seu propósito exclusivo na comunicação do banco de dados:
 
-Queries(Consultas): 
+Queries (Consultas): 
 Este é o componente que permite recuperar dados de um banco de dados. A instrução SELECT é mais comumente usada para esse propósito.
 
 Data Definition Language (DDL): 
@@ -287,10 +287,11 @@ Tabela **TABELA_CIDADE**:
 Tabela **TABELA_FUNCIONARIOS**:
 | funcionarios_ID | coluna_nome | coluna_posicao | coluna_salario | coluna_data_nascimento |
 | :---: | :---: | :---: | :---: | :---: |  
-| 1 | Janete | Manager | 50000 | 01-04-1990 |
-| 2 | Joao | Clerk | 30000 | 02-03-1991 |
-| 3 | Roberto | Engineer | 40000 | 03-02-1992 |
-| 4 | Carlos | CEO | 60000 | 04-01-1993 |
+| 1 | Janete | Manager | 50000 | 01-05-1990 |
+| 2 | Joao | Clerk | 30000 | 02-04-1991 |
+| 3 | Roberto | Engineer | 40000 | 03-03-1992 |
+| 4 | Carlos | CEO | 60000 | 04-02-1993 |
+| 5 | Julio | Engineer | 40000 | 05-01-1993 |
 | ... | ... | ... | ... | ... |
 
 Tabela **TABELA_ESTUDANTE**:
@@ -322,60 +323,89 @@ Tabela **TABELA_PEDIDOS**:
 
 ## QUERIES (Consultas):
 
-Consultar todas(`*`) as colunas da tabela `COUNTRY`:
+### SELECT
+A instrução ` SELECT ` em SQL é usada principalmente para buscar dados do banco de dados. É um dos elementos mais essenciais do SQL.
+
+Esta será a aparência do seu comando SELECT:
+
+Sintaxe:
+```sql
+SELECT coluna_nome1, coluna_nome2, ...
+FROM tabela_cidade;
+```
+Se quiser selecionar todas as colunas de uma tabela, você pode usar * assim:
+
 ```sql
 SELECT *
-FROM country;
+FROM tabela_nome;
 ```
-Resultado:
-| id | name | population | area |
-| :---: | :---: | :---: | :---: |
-| 1 | Italia | 66600000 | 640000 |
-| 2 | Brazil | 21400000 | 851000000 |
-| 3 | Estados Unidads | 331900000 | 331893745 |
-| 4 | Argentina | 36260130 | 2780400 |
+### Exemplo - SELECT
+Considere que temos uma tabela ` TABELA_FUNCIONARIOS ` com colunas ` coluna_nome `, ` coluna_posicao ` e ` coluna_salario `. Podemos usar ` SELECT ` da seguinte maneira:
 
-Consultar as colunas `ID` e **`NAME`** da tabela **`CITY`**:
 ```sql
-SELECT id, name
-FROM city;
+SELECT coluna_nome, coluna_posicao 
+FROM tabela_funcionarios;
 ```
-Resultado:
-| id | name |
+Isso recuperará todos os nomes e posicao de todos os funcionários da tabela TABELA_FUNCIONARIOS:
+| coluna_nome | coluna_posicao |
 | :---: | :---: |
-| 1 | Florença |
-| 2 | Fortaleza |
-| 3 | São Paulo |
-| 4 | Maranhão |
+| Janete | Manager |
+| Joao | Clerk |
+| Roberto | Engineer |
+| Carlos | CEO |
+| Julio | Engineer |
 | ... | ... |
 
-Consultar os **`NAME`** das **`CITY`** classificados pela coluna **`RATING`** na ordem Crescente (ASC):
-```sql
-SELECT name, rating
-FROM city
-ORDER BY rating [ASC];
-```
-Resultado:
-| name | rating |
-| :---: | :---: |
-| São Paulo | 1 |
-| Florença | 3 |
-| Fortaleza| 5 |
-| Maranhão | 33 |
 
-Consultar os **`NAME`** das **`CITY`** classificados pela coluna **`RATING`** na ordem Decrescente (DESC):
+### SELECT DISTINCT
+A instrução ` SELECT DISTINCT ` é usada para retornar apenas valores distintos (diferentes). A palavra-chave ` DISTINCT ` elimina registros duplicados dos resultados.
+
+Sintaxe:
 ```sql
-SELECT name, rating
-FROM city
-ORDER BY rating DESC;
+SELECT DISTINCT coluna_nome1, coluna_nome2, ...
+FROM tabela_nome;
 ```
-Resultado:
-| name | rating |
-| :---: | :---: |
-| Maranhão | 33 |
-| Fortaleza | 5 |
-| Florença| 3 |
-| São Paulo | 1 |
+
+### Exemplo - SELECT DISTINCT
+Se quisermos selecionar todas as POSIÇÃO exclusivas da tabela ` TABELA_FUNCIONARIOS `, a consulta ficará assim:
+
+```sql
+SELECT DISTINCT coluna_posicao 
+FROM tabela_funcionarios;
+```
+
+A consulta retornaria os valores únicos encontrados na coluna coluna_posicao da tabela TABELA_FUNCIONARIOS:
+| coluna_posicao |
+| :---: |
+| Manager |
+| Clerk |
+| Engineer |
+| CEO |
+
+### SELECT WHERE
+A instrução `SELECT` combinada com `WHERE` nos dá a capacidade de filtrar registros com base em uma condição.
+
+Sintaxe:
+```sql
+SELECT column1, column2, ...
+FROM table_name
+WHERE condition;
+```
+
+### Exemplo - SELECT WHERE
+Comsiderando que temos a tabela ` TABELA_FUNCIONARIOS ` com as colunas ` funcionarios_ID `,	` coluna_nome `, ` coluna_posicao ` e ` coluna_salario `. Para selecionar funcionários com salário superior a 50.000, você pode usar esta consulta:
+
+```sql
+SELECT * 
+FROM tabela_funcionarios 
+WHERE coluna_salario > 50000;
+```
+
+A consulta retornaria somente os valores onde o Salario é superior a 50.000:
+
+| funcionarios_ID | coluna_nome | coluna_posicao | coluna_salario | coluna_data_nascimento |
+| :---: | :---: | :---: | :---: | :---: |  
+| 4 | Carlos | CEO | 60000 | 04-01-1993 |
 
 ## APELIDOS (ALIASES)
 
