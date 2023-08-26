@@ -101,7 +101,7 @@ SELECT: Esta palavra-chave recupera dados de um banco de dados. Por exemplo,
 SELECT * FROM Customers;
 ```
 
-Na instrução acima **` * `** indica que todos os registros devem ser recuperados da tabela Clientes.
+Na instrução acima ` * ` indica que todos os registros devem ser recuperados da tabela Clientes.
 
 FROM: Usado em conjunto com **` SELECT `** para especificar a tabela da qual buscar dados.
 
