@@ -98,7 +98,7 @@ Aqui estão algumas das principais palavras-chave SQL:
 SELECT: Esta palavra-chave recupera dados de um banco de dados. Por exemplo,
 
 ```sql
-SELECT * FROM Customers;
+SELECT * FROM tabela_clientes;
 ```
 
 Na instrução acima ` * ` indica que todos os registros devem ser recuperados da tabela Clientes.
@@ -108,37 +108,37 @@ FROM: Usado em conjunto com **` SELECT `** para especificar a tabela da qual bus
 WHERE: Usado para filtrar registros. Incorporando uma cláusula **` WHERE `**, você pode especificar condições que devem ser atendidas. Por exemplo,
 
 ```sql
-SELECT * FROM Customers WHERE Country='Germany';
+SELECT * FROM tabela_clientes WHERE coluna_pais='Germany';
 ```
 
 INSERT INTO: Este comando é usado para inserir novos dados em um banco de dados.
 
 ```sql
-INSERT INTO Customers (CustomerID, CustomerName, ContactName, Address, City, PostalCode, Country)
+INSERT INTO tabela_clientes (coluna_cliente_ID, coluna_cliente_nome, coluna_nome_contato, coluna_endereco, Cidade, Codigo_Postal, coluna_pais)
 VALUES ('Cardinal','Tom B. Erichsen','Skagen 21','Stavanger','4006','Norway');
 ```
 
 UPDATE: esta palavra-chave atualiza os dados existentes em uma tabela. Por exemplo,
 
 ```sql
-UPDATE Customers SET ContactName='Alfred Schmidt', City='Frankfurt' WHERE CustomerID=1;
+UPDATE tabela_clientes SET coluna_nome_contato='Alfred Schmidt', coluna_cidade='Frankfurt' WHERE coluna_cliente_ID=1;
 ```
 
 DELETE: Este comando remove um ou mais registros de uma tabela. Por exemplo,
 
 ```sql
-DELETE FROM Customers WHERE CustomerName='Alfreds Futterkiste';
+DELETE FROM tabela_clientes WHERE coluna_coluna_cliente_nome='Alfreds Futterkiste';
 ```
 
 CREATE DATABASE: Como seu nome indica, esta palavra-chave cria um novo banco de dados.
 
 ```sql
-CREATE DATABASE minha_database;
+CREATE DATABASE meu_banco_dados;
 ```
 
 ALTER DATABASE, DROP DATABASE, CREATE TABLE, ALTER TABLE, DROP TABLE: Essas palavras-chave são usadas para modificar bancos de dados e tabelas.
 
-Lembre-se de que o SQL não diferencia maiúsculas de minúsculas, o que significa que as palavras-chave podem ser escritas em letras minúsculas. O ideal é escreve-las em MAIÚSCULAS para facilitar a leitura. Existem muito mais palavras-chave em SQL, mas estas são algumas das mais comuns.
+Lembre-se de que o SQL não diferencia maiúsculas de minúsculas, o que significa que as palavras-chave podem ser escritas em letras minúsculas. O ideal é escreve-las em ` MAIÚSCULAS ` para facilitar a leitura. Existem muito mais palavras-chave em SQL, mas estas são algumas das mais comuns.
 
 ### Tipos de Dados (Data Types)
 
@@ -147,34 +147,34 @@ Os tipos de dados SQL definem o tipo de dados que podem ser armazenados na colun
 **` INT `** é usado para números inteiros. Por exemplo:
 
 ```sql
-CREATE TABLE Employees (
+CREATE TABLE tabela_funcionarios (
     ID INT,
-    Name VARCHAR(30)
+    coluna_nome VARCHAR(30)
 );
 ```
 
 **` DECIMAL `** é usado para números decimais e fracionários. Por exemplo:
 
 ```sql
-CREATE TABLE Items (
+CREATE TABLE tabela_itens (
     ID INT,
-    Price DECIMAL(5,2)
+    coluna_preco DECIMAL(5,2)
 );
 ```
 
 **` CHAR `** é usado para strings de comprimento fixo. Por exemplo:
 
 ```sql
-CREATE TABLE Employees (
+CREATE TABLE tabela_funcionarios (
     ID INT,
-    Initial CHAR(1)
+    coluna_Inicial_nome CHAR(1)
 );
 ```
 
 **` VARCHAR `** é usado para strings de comprimento variável. Por exemplo:
 
 ```sql
-CREATE TABLE Employees (
+CREATE TABLE tabela_funcionarios (
     ID INT,
     Name VARCHAR(30)
 );
@@ -183,18 +183,18 @@ CREATE TABLE Employees (
 **` DATE `** é usado para datas no formato (YYYY-MM-DD).
 
 ```sql
-CREATE TABLE Employees (
+CREATE TABLE tabela_funcionarios (
     ID INT,
-    BirthDate DATE
+    coluna_data_nascimento DATE
 );
 ```
 
 **` DATETIME `** é usado para valores de data e hora no formato (YYYY-MM-DD HH:MI:SS).
 
 ```sql
-CREATE TABLE Orders (
+CREATE TABLE tabela_pedidos (
     ID INT,
-    OrderDate DATETIME
+    coluna_data_pedido DATETIME
 );
 ```
 
@@ -250,7 +250,7 @@ Example:
 
 ```sql
 SELECT * 
-FROM employees
+FROM tabela_funcionarios
 WHERE salary > 50000 AND age < 30;
 ```
 
