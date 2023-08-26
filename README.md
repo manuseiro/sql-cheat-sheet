@@ -220,8 +220,8 @@ Operadores SQL são usados para realizar operações como comparações e cálcu
 Exemplo:
 
 ```sql
-SELECT product, price, (price * 0.18) as tax
-FROM products;
+SELECT coluna_produto, coluna_preco, (coluna_preco * 0.18) as tax
+FROM tabela_produtos;
 ```
 
 **Operadores de comparação**: são usados na cláusula where para comparar uma expressão com outra. Alguns desses operadores são:
@@ -236,8 +236,8 @@ FROM products;
 Exemplo:
 
 ```sql
-SELECT name, age
-FROM students
+SELECT name, coluna_idade
+FROM tabela_estudante
 WHERE age > 18;
 ```
 **Operadores Lógicos**: São usados para combinar o conjunto de resultados de duas condições de componentes diferentes. Esses incluem:
@@ -251,7 +251,7 @@ Example:
 ```sql
 SELECT * 
 FROM tabela_funcionarios
-WHERE salary > 50000 AND age < 30;
+WHERE coluna_salario > 50000 AND age < 30;
 ```
 
 **Operadores bitwise (bit a bit)**: executam operações em nível de bit nas entradas. Aqui está uma lista desses operadores:
@@ -265,10 +265,9 @@ Operadores Bitwise são muito menos usados em SQL do que outros tipos de operado
 *Lembre-se de que o tipo de dados do resultado depende dos tipos dos operandos.*
 
 ## Tabelas para Exemplos de uso:
-**`COUNTRY`** e **`CITY`**
 
-|Tabela COUNTRY (País)|
-| id | name | population | area |
+Tabela **TABELA_PAIS**:
+| pais_ID | coluna_nome | coluna_populacao | coluna_area |
 | :---: | :---: | :---: | :---: |
 | 1 | Italia | 66600000 | 640000 |
 | 2 | Brazil | 21400000 | 851000000 |
@@ -276,8 +275,8 @@ Operadores Bitwise são muito menos usados em SQL do que outros tipos de operado
 | 4 | Argentina | 36260130 | 2780400 |
 | ... | ... | ... | ... |
 
-|Tabela CITY (Cidade)|
-| id | name | country_id | population | rating |
+Tabela **TABELA_CIDADE**:
+| cidade_ID | name | pais_ID | populacao | rating |
 | :---: | :---: | :---: | :---: | :---: |
 | 1 | Florença | 1 | 22400000 | 3 |
 | 2 | Fortaleza | 2 | 26800000 | 5 |
@@ -285,6 +284,41 @@ Operadores Bitwise são muito menos usados em SQL do que outros tipos de operado
 | 4 | Maranhão | 2 | 685000000 | 33 |
 | ... | ... | ... | ... | ... |
 
+Tabela **TABELA_FUNCIONARIOS**:
+| funcionarios_ID | coluna_nome | coluna_posicao | coluna_salario | coluna_data_nascimento |
+| :---: | :---: | :---: | :---: | :---: |  
+| 1 | Janete | Manager | 50000 | 01-04-1990 |
+| 2 | Joao | Clerk | 30000 | 02-03-1991 |
+| 3 | Roberto | Engineer | 40000 | 03-02-1992 |
+| 4 | Carlos | CEO | 60000 | 04-01-1993 |
+| ... | ... | ... | ... | ... |
+
+Tabela **TABELA_ESTUDANTE**:
+| estudante_ID | coluna_nome | coluna_idade | coluna_data_nascimento |
+| :---: | :---: | :---: | :---: |  
+| 1 | Janete | 33 | 01/04/1990 |
+| 2 | Joao | 32 | 02/03/1991 |
+| 3 | Roberto | 31 | 03/02/1992 |
+| 4 | Carlos | 30 | 04/01/1993 |
+| ... | ... | ... | ... | ... |
+
+Tabela **TABELA_PRODUTOS**:
+| produtos_ID | coluna_produto | coluna_preco |
+| :---: | :---: | :---: |
+| 1 | Chocolate | 50000 |
+| 2 | Café | 30000 |
+| 3 | Leite | 40000 |
+| 4 | Mantega | 60000 | 
+| ... | ... | ... | 
+
+Tabela **TABELA_PEDIDOS**:
+| pedidos_ID | coluna_pedido | cliente_id | coluna_valor_pedido | coluna_data_pedido |
+| :---: | :---: | :---: | :---: | :---: |  
+| 1 | 20230826001 | 01 | 50000 | 26-08-2023  00:00:00 |
+| 2 | 20230826002 | 02 | 30000 | 26-08-2023  00:00:00 |
+| 3 | 20230826003 | 03 | 40000 | 26-08-2023  00:00:00 |
+| 4 | 20230826004 | 04 | 60000 | 26-08-2023  00:00:00 |
+| ... | ... | ... | ... | ... |
 
 ## QUERIES (Consultas):
 
