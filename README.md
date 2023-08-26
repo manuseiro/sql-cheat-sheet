@@ -3,7 +3,7 @@
 O Resumo de Conceitos Básicos de SQL fornece a sintaxe de todas as cláusulas básicas, demonstra como escrever diferentes condições e inclui exemplos.
 
 ## O que é SQL?:
-Structured Query Language, ou SQL, é a linguagem declarativa de consulta padrão para manipulação de dados mantidos em sistemas de gerenciamento de banco de dados relacional (RDBMS) ou para processamento de fluxo em um sistema de gerenciamento de fluxo de dados relacional (RDSMS). Foi desenvolvido pela primeira vez na década de 1970 pela IBM.
+Structured Query Language, ou SQL, é a linguagem declarativa de consulta padrão para manipulação de dados mantidos em sistemas de gerenciamento de banco de dados relacional (**` RDBMS `** ) ou para processamento de fluxo em um sistema de gerenciamento de fluxo de dados relacional (**` RDSMS `** ). Foi desenvolvido pela primeira vez na década de 1970 pela **` IBM `** .
 
 Embora todas as linguagens SQL compartilhem uma estrutura básica, alguns comandos e estilos específicos podem diferir ligeiramente. Dialectos populares incluem MySQL, SQLite, SQL Server, Oracle SQL, entre outros. O PostgreSQL é um bom ponto de partida, pois está próximo da sintaxe SQL padrão e pode ser facilmente adaptado para outros dialetos.
 
@@ -63,7 +63,7 @@ CREATE TABLE nome_tabela (
 );
 ```
 
-A instrução **` ALTER `** TABLE é usada para adicionar, excluir/descartar ou modificar colunas na tabela existente. Também é usado para adicionar e eliminar restrições na tabela existente.
+A instrução **` ALTER TABLE `** é usada para adicionar, excluir/descartar ou modificar colunas na tabela existente. Também é usado para adicionar e eliminar restrições na tabela existente.
 
 ```sql
 -- Para adicionar uma coluna
@@ -101,11 +101,11 @@ SELECT: Esta palavra-chave recupera dados de um banco de dados. Por exemplo,
 SELECT * FROM Customers;
 ```
 
-Na instrução acima `** * `** indica que todos os registros devem ser recuperados da tabela Clientes.
+Na instrução acima **` * `** indica que todos os registros devem ser recuperados da tabela Clientes.
 
-FROM: Usado em conjunto com `SELECT**` para especificar a tabela da qual buscar dados.
+FROM: Usado em conjunto com **` SELECT `** para especificar a tabela da qual buscar dados.
 
-WHERE: Usado para filtrar registros. Incorporando uma cláusula `** WHERE `, você pode especificar condições que devem ser atendidas. Por exemplo,
+WHERE: Usado para filtrar registros. Incorporando uma cláusula **` WHERE `**, você pode especificar condições que devem ser atendidas. Por exemplo,
 
 ```sql
 SELECT * FROM Customers WHERE Country='Germany';
