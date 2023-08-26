@@ -43,7 +43,7 @@ Tabela CITY (Cidade)
 | ... | ... | ... | ... | ... |
 
 
-## CONSULTANDO UMA TABELA ÚNICA(QUERYING SINGLE TABLE)
+## QUERIES (Consultas):
 
 Consultar todas(`*`) as colunas da tabela `COUNTRY`:
 ```sql
@@ -122,7 +122,7 @@ Resultado:
 | 1 | Florença | 
 | ... | ... | 
 
-### EXEMPLO DE TABELAS
+### Exemplo em Tabela
 Outra forma de utilizar aliases é atribuir apelidos às tabelas em uma consulta.
 
 Exemplo de consulta utilizando alias nas tabelas CITY e COUNTRY, com os apelidos CI e CO, respectivamente:
@@ -150,6 +150,59 @@ Resultado:
 
 _OBS: JOIN (ou explicitamente INNER JOIN) retorna linhas que possuem valores correspondentes em ambas as tabelas._
 
+## SUBCONSULTAS (SUBQUERIES)
+Uma subconsulta é uma consulta aninhada dentro de outra consulta ou dentro de outra subconsulta. Existem diferentes tipos de subconsultas.
+
+### SINGLE VALUE
+A subconsulta mais simples retorna exatamente uma coluna e exatamente uma linha. Pode ser usado com operadores de comparação =, <, <=, > ou >=.
+
+Esta consulta encontra cidades com a mesma classificação de Paris:
+```sql
+SELECT name 
+FROM city
+WHERE rating = (
+	SELECT rating
+	FROM city
+	WHERE name = 'Paris'
+);
+```
+### MULTIPLE VALUES
+Uma subconsulta também pode retornar várias colunas ou várias linhas. Essas subconsultas podem ser usadas com os operadores IN, EXISTS, ALL ou ANY.
+
+Esta consulta encontra cidades em países com população acima de 20 milhões:
+```sql
+SELECT name
+FROM city
+WHERE country_id IN (
+	SELECT country_id
+	FROM country
+	WHERE population > 20000000
+);
+```
+
+### CORRELATED
+Uma subconsulta correlacionada refere-se às tabelas introduzidas na consulta externa. Uma subconsulta correlacionada depende da consulta externa. Ele não pode ser executado independentemente da consulta externa.
+
+Esta consulta encontra cidades com uma população maior que a população média do país:
+```sql
+SELECT *
+FROM city main_city
+WHERE population > (
+	SELECT AVG(population)
+	FROM city average_city
+	WHERE average_city.country_id = main_city.country_id
+);
+```
+Esta consulta encontra países que possuem pelo menos uma cidade:
+```sql
+SELECT name
+FROM country
+WHERE EXISTS (
+	SELECT *
+	FROM city
+	WHERE country_id = country.id
+);
+```
 ### OPERADORES DE COMPARAÇÃO (COMPARISON OPERATORS)
 
 a) Consultar **`NAME`** da **`CITY`** com **`RATING`** acima de 3
@@ -488,7 +541,72 @@ SELECT city.name, country.name
 FROM city
 NATURAL JOIN country;
 ```
-## AGREGAÇÃO E AGRUPAMENTO (AGGREGATION AND GROUPING)
+
+## FUNÇÕES AGREGADAS (AGGREGATE FUNCTIONS)
+Funções agregadas SQL são funções integradas usadas para realizar alguns cálculos nos dados e retornar um único valor. É por isso que eles formam a base para “consultas agregadas”. Essas funções operam em um conjunto de linhas e retornam um único resultado resumido.
+
+- count(column_name) − Conta o número de linhas de uma coluna.
+```sql
+SELECT COUNT(column_name) 
+FROM table_name 
+WHERE condition;
+```
+- sum(column_name) − Retorna a soma de uma coluna numérica.
+```sql
+SELECT SUM(column_name) 
+FROM table_name 
+WHERE condition;
+```
+- avg(column_name) − Retorna o valor médio de uma coluna numérica.
+```sql
+SELECT AVG(column_name) 
+FROM table_name 
+WHERE condition;
+```
+- min(column_name) − Retorna o menor valor da coluna selecionada.
+```sql
+SELECT MIN(column_name) 
+FROM table_name 
+WHERE condition;
+```
+- max(column_name) − Retorna o maior valor da coluna selecionada.
+```sql
+SELECT MAX(column_name) 
+FROM table_name 
+WHERE condition;
+```
+
+Veja alguns exemplo de uso:
+
+Descubra o número de cidades:
+```sql
+SELECT COUNT(rating)
+FROM city;
+```
+Descubra o número de cidades com classificações não nulas:
+```sql
+SELECT COUNT(DISTINCT country_id)
+FROM city;
+```
+Descubra o número de valores de país distintos:
+```sql
+SELECT MIN(population), MAX(population)
+FROM country;
+```
+Descubra as menores e as maiores populações do país:
+```sql
+SELECT country_id, SUM(population)
+FROM city
+GROUP BY country_id;
+```
+Descubra a população total das cidades nos respectivos países:
+```sql
+SELECT country_id, AVG(rating)
+FROM city
+GROUP BY country_id
+HAVING AVG(rating) > 3.0;
+```
+## AGRUPAMENTO (GROUPING)
 
 ### GROUP BY
 GROUP BY agrupa linhas que possuem os mesmos valores em colunas especificadas.
@@ -519,96 +637,6 @@ Resultado:
 | 2 | 3 | 
 | 3 | 2 | 
 | ... | ... |
-
-### FUNÇÕES AGREGADAS (AGGREGATE FUNCTIONS)
-- avg(expr) − valor médio para linhas dentro do grupo
-- count(expr) − contagem de valores para linhas dentro do grupo
-- max(expr) − valor máximo dentro do grupo
-- min(expr) − valor mínimo dentro do grupo
-- sum(expr) − soma dos valores dentro do grupo
-
-Descubra o número de cidades:
-```sql
-SELECT COUNT(rating)
-FROM city;
-```
-Descubra o número de cidades com classificações não nulas:
-```sql
-SELECT COUNT(DISTINCT country_id)
-FROM city;
-```
-Descubra o número de valores de país distintos:
-```sql
-SELECT MIN(population), MAX(population)
-FROM country;
-```
-Descubra as menores e as maiores populações do país:
-```sql
-SELECT country_id, SUM(population)
-FROM city
-GROUP BY country_id;
-```
-Descubra a população total das cidades nos respectivos países:
-```sql
-SELECT country_id, AVG(rating)
-FROM city
-GROUP BY country_id
-HAVING AVG(rating) > 3.0;
-```
-## SUBCONSULTAS (SUBQUERIES)
-Uma subconsulta é uma consulta aninhada dentro de outra consulta ou dentro de outra subconsulta. Existem diferentes tipos de subconsultas.
-
-### SINGLE VALUE
-A subconsulta mais simples retorna exatamente uma coluna e exatamente uma linha. Pode ser usado com operadores de comparação =, <, <=, > ou >=.
-
-Esta consulta encontra cidades com a mesma classificação de Paris:
-```sql
-SELECT name 
-FROM city
-WHERE rating = (
-	SELECT rating
-	FROM city
-	WHERE name = 'Paris'
-);
-```
-### MULTIPLE VALUES
-Uma subconsulta também pode retornar várias colunas ou várias linhas. Essas subconsultas podem ser usadas com os operadores IN, EXISTS, ALL ou ANY.
-
-Esta consulta encontra cidades em países com população acima de 20 milhões:
-```sql
-SELECT name
-FROM city
-WHERE country_id IN (
-	SELECT country_id
-	FROM country
-	WHERE population > 20000000
-);
-```
-
-### CORRELATED
-Uma subconsulta correlacionada refere-se às tabelas introduzidas na consulta externa. Uma subconsulta correlacionada depende da consulta externa. Ele não pode ser executado independentemente da consulta externa.
-
-Esta consulta encontra cidades com uma população maior que a população média do país:
-```sql
-SELECT *
-FROM city main_city
-WHERE population > (
-	SELECT AVG(population)
-	FROM city average_city
-	WHERE average_city.country_id = main_city.country_id
-);
-```
-Esta consulta encontra países que possuem pelo menos uma cidade:
-```sql
-SELECT name
-FROM country
-WHERE EXISTS (
-	SELECT *
-	FROM city
-	WHERE country_id = country.id
-);
-```
-
 
 ## USANDO RESTRIÇÕES SQL (USING SQL CONSTRAINTS)
 
@@ -694,3 +722,4 @@ WHERE cl IS [NOT] NULL;
  - [W3Schools - SQL Tutorial](https://www.w3schools.com/sql)
  - [SQL Basics Cheat Sheet - LearnSQL.com](https://learnsql.com/blog/sql-basics-cheat-sheet/)
  - [SQL Basics Cheat Sheet - DataCamp](https://www.datacamp.com/cheat-sheet/sql-basics-cheat-sheet)
+ - [Roadmap.sh](https://roadmap.sh/sql)
