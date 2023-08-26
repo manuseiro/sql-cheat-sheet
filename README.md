@@ -3,12 +3,26 @@
 O Resumo de Conceitos Básicos de SQL fornece a sintaxe de todas as cláusulas básicas, demonstra como escrever diferentes condições e inclui exemplos.
 
 ## O que é SQL?:
-Structured Query Language, ou SQL, é a linguagem declarativa de consulta padrão para bancos de dados relacionais. Muitos dos recursos originais do SQL foram inspirados pela álgebra relacional.
+Structured Query Language, ou SQL, é a linguagem declarativa de consulta padrão para manipulação de dados mantidos em sistemas de gerenciamento de banco de dados relacional (RDBMS) ou para processamento de fluxo em um sistema de gerenciamento de fluxo de dados relacional (RDSMS). Foi desenvolvido pela primeira vez na década de 1970 pela IBM.
 
 Embora todas as linguagens SQL compartilhem uma estrutura básica, alguns comandos e estilos específicos podem diferir ligeiramente. Dialectos populares incluem MySQL, SQLite, SQL Server, Oracle SQL, entre outros. O PostgreSQL é um bom ponto de partida, pois está próximo da sintaxe SQL padrão e pode ser facilmente adaptado para outros dialetos.
 
-## Dados de Exemplo:
-Ao longo deste resumo, usaremos as colunas listadas nas tabelas de exemplo **`COUNTRY`** e **`CITY`**
+## COMPONENTES
+SQL consiste em vários componentes, cada um servindo a seu propósito exclusivo na comunicação do banco de dados:
+
+Queries(Consultas): 
+Este é o componente que permite recuperar dados de um banco de dados. A instrução SELECT é mais comumente usada para esse propósito.
+
+Data Definition Language (DDL): 
+Linguagem de definição de dados (DDL) permite criar, alterar ou excluir bancos de dados e seus objetos relacionados, como tabelas, visualizações, etc. Os comandos incluem CREATE, ALTER, DROP e TRUNCATE.
+
+Data Manipulation Language (DML): 
+Linguagem de manipulação de dados (DML) permite gerenciar dados dentro de objetos de banco de dados. Esses comandos incluem SELECT, INSERT, UPDATE e DELETE.
+
+Data Control Language (DCL): 
+Linguagem de controle de dados (DCL), inclui comandos como GRANT e REVOKE, que tratam principalmente de direitos, permissões e outras tarefas de gerenciamento de nível de controle para o sistema de banco de dados.
+
+**`COUNTRY`** e **`CITY`**
 
 Tabela COUNTRY (País)
 | id | name | population | area |
@@ -27,6 +41,7 @@ Tabela CITY (Cidade)
 | 3 | São Paulo | 2 | 12300000 | 1 |
 | 4 | Maranhão | 2 | 685000000 | 33 |
 | ... | ... | ... | ... | ... |
+
 
 ## CONSULTANDO UMA TABELA ÚNICA(QUERYING SINGLE TABLE)
 
@@ -107,7 +122,7 @@ Resultado:
 | 1 | Florença | 
 | ... | ... | 
 
-### Exemplo em Tabelas
+### EXEMPLO DE TABELAS
 Outra forma de utilizar aliases é atribuir apelidos às tabelas em uma consulta.
 
 Exemplo de consulta utilizando alias nas tabelas CITY e COUNTRY, com os apelidos CI e CO, respectivamente:
@@ -134,8 +149,6 @@ Resultado:
 | 4 | Maranhão | 2 | 685000000 | 33 |
 
 _OBS: JOIN (ou explicitamente INNER JOIN) retorna linhas que possuem valores correspondentes em ambas as tabelas._
-
-## FILTRANDO A SAÍDA (FILTERING THE OUTPUT)
 
 ### OPERADORES DE COMPARAÇÃO (COMPARISON OPERATORS)
 
