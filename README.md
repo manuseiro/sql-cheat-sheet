@@ -22,6 +22,248 @@ Linguagem de manipulação de dados (DML) permite gerenciar dados dentro de obje
 Data Control Language (DCL): 
 Linguagem de controle de dados (DCL), inclui comandos como GRANT e REVOKE, que tratam principalmente de direitos, permissões e outras tarefas de gerenciamento de nível de controle para o sistema de banco de dados.
 
+## Sintaxe SQL Básica 
+
+SQL, ou Structured Query Language, usa um conjunto específico de comandos para interagir com um banco de dados. Inclui o uso de instruções semelhantes a palavras-chave para realizar diversas tarefas, como criar, excluir ou modificar tabelas, recuperar, inserir ou modificar dados. 
+
+ A instrução **` SELECT `** é usada para recuperar dados de um banco de dados. Os dados retornados são armazenados em uma tabela de resultados, chamada conjunto de resultados. 
+
+```sql
+SELECT nome_coluna1, nome_coluna2 FROM nome_tabela; 
+```
+
+A instrução **` INSERT INTO `** é usada para inserir novas linhas de dados em uma tabela. 
+
+```sql
+INSERT INTO nome_tabela (nome_coluna1, nome_coluna2, nome_coluna3)
+VALUES (valor1, valor2, valor3);
+```
+
+A instrução **` UPDATE `** é usada para modificar registros existentes em uma tabela.
+
+```sql
+UPDATE nome_tabela
+SET nome_coluna1 = valor1, nome_coluna2 = valor2
+WHERE condition;
+```
+
+A instrução **` DELETE `** é usada para remover linhas de uma tabela.
+
+```sql
+DELETE FROM nome_tabela WHERE condition;
+```
+
+A instrução **` CREATE TABLE `** é usada para criar uma nova tabela em um banco de dados.
+
+```sql
+CREATE TABLE nome_tabela (
+    nome_coluna1 datatype constraints,
+    nome_coluna2 datatype constraints,
+    nome_coluna3 datatype constraints
+);
+```
+
+A instrução **` ALTER `** TABLE é usada para adicionar, excluir/descartar ou modificar colunas na tabela existente. Também é usado para adicionar e eliminar restrições na tabela existente.
+
+```sql
+-- Para adicionar uma coluna
+ALTER TABLE nome_tabela
+ADD nome_coluna datatype;
+```
+
+```sql
+-- Para excluir/descartar coluna
+ALTER TABLE nome_tabela
+DROP COLUMN nome_coluna;
+```
+
+```sql
+-- Para modificar a coluna existente
+ALTER TABLE nome_tabela
+MODIFY COLUMN nome_coluna datatype;
+```
+
+A instrução DROP TABLE é usada para eliminar uma tabela existente em um banco de dados.
+
+```sql
+DROP TABLE nome_tabela;
+```
+
+### Palavras-chave (SQL keywords)
+
+SQL emprega uma série de palavras-chave de comando padrão que são essenciais para interagir com bancos de dados. Palavras-chave em SQL fornecem instruções sobre qual ação deve ser executada.
+
+Aqui estão algumas das principais palavras-chave SQL:
+
+SELECT: Esta palavra-chave recupera dados de um banco de dados. Por exemplo,
+
+```sql
+SELECT * FROM Customers;
+```
+
+Na instrução acima `** * `** indica que todos os registros devem ser recuperados da tabela Clientes.
+
+FROM: Usado em conjunto com `SELECT**` para especificar a tabela da qual buscar dados.
+
+WHERE: Usado para filtrar registros. Incorporando uma cláusula `** WHERE `, você pode especificar condições que devem ser atendidas. Por exemplo,
+
+```sql
+SELECT * FROM Customers WHERE Country='Germany';
+```
+
+INSERT INTO: Este comando é usado para inserir novos dados em um banco de dados.
+
+```sql
+INSERT INTO Customers (CustomerID, CustomerName, ContactName, Address, City, PostalCode, Country)
+VALUES ('Cardinal','Tom B. Erichsen','Skagen 21','Stavanger','4006','Norway');
+```
+
+UPDATE: esta palavra-chave atualiza os dados existentes em uma tabela. Por exemplo,
+
+```sql
+UPDATE Customers SET ContactName='Alfred Schmidt', City='Frankfurt' WHERE CustomerID=1;
+```
+
+DELETE: Este comando remove um ou mais registros de uma tabela. Por exemplo,
+
+```sql
+DELETE FROM Customers WHERE CustomerName='Alfreds Futterkiste';
+```
+
+CREATE DATABASE: Como seu nome indica, esta palavra-chave cria um novo banco de dados.
+
+```sql
+CREATE DATABASE minha_database;
+```
+
+ALTER DATABASE, DROP DATABASE, CREATE TABLE, ALTER TABLE, DROP TABLE: Essas palavras-chave são usadas para modificar bancos de dados e tabelas.
+
+Lembre-se de que o SQL não diferencia maiúsculas de minúsculas, o que significa que as palavras-chave podem ser escritas em letras minúsculas. O ideal é escreve-las em MAIÚSCULAS para facilitar a leitura. Existem muito mais palavras-chave em SQL, mas estas são algumas das mais comuns.
+
+### Tipos de Dados (Data Types)
+
+Os tipos de dados SQL definem o tipo de dados que podem ser armazenados na coluna de uma tabela de banco de dados. Dependendo do **SGBD**, os nomes dos tipos de dados podem diferir ligeiramente. Aqui estão os tipos gerais:
+
+**` INT `** é usado para números inteiros. Por exemplo:
+
+```sql
+CREATE TABLE Employees (
+    ID INT,
+    Name VARCHAR(30)
+);
+```
+
+**` DECIMAL `** é usado para números decimais e fracionários. Por exemplo:
+
+```sql
+CREATE TABLE Items (
+    ID INT,
+    Price DECIMAL(5,2)
+);
+```
+
+**` CHAR `** é usado para strings de comprimento fixo. Por exemplo:
+
+```sql
+CREATE TABLE Employees (
+    ID INT,
+    Initial CHAR(1)
+);
+```
+
+**` VARCHAR `** é usado para strings de comprimento variável. Por exemplo:
+
+```sql
+CREATE TABLE Employees (
+    ID INT,
+    Name VARCHAR(30)
+);
+```
+
+**` DATE `** é usado para datas no formato (YYYY-MM-DD).
+
+```sql
+CREATE TABLE Employees (
+    ID INT,
+    BirthDate DATE
+);
+```
+
+**` DATETIME `** é usado para valores de data e hora no formato (YYYY-MM-DD HH:MI:SS).
+
+```sql
+CREATE TABLE Orders (
+    ID INT,
+    OrderDate DATETIME
+);
+```
+
+**` BINARY `** é usado para strings binárias.
+
+**` BOOLEAN `** é usado para valores booleanos (**` TRUE `** or **` FALSE `**).
+
+
+*Lembre-se, a sintaxe específica para criar tabelas e definir tipos de dados de coluna pode variar um pouco dependendo do banco de dados SQL que você está usando (MySQL, PostgreSQL, SQL Server, SQLite, Oracle, etc.), mas o conceito geral e a organização dos tipos de dados são plataforma cruzada.*
+
+### Operadores (Operators)
+
+Operadores SQL são usados para realizar operações como comparações e cálculos aritméticos. Eles são muito cruciais na formação de consultas. Os operadores SQL são divididos nos seguintes tipos:
+
+**Operadores Aritméticos**: São usados para realizar operações matemáticas. Aqui está uma lista desses operadores:
+
+- **` + `** : Adição
+- **` - `** : Subtração
+- **` * `** : Multiplicação
+- **` / `** : Divisão
+- **` % `** : Modulo
+
+Exemplo:
+
+```sql
+SELECT product, price, (price * 0.18) as tax
+FROM products;
+```
+
+**Operadores de comparação**: são usados na cláusula where para comparar uma expressão com outra. Alguns desses operadores são:
+
+- **` = `**: Igual
+- **` != or <> `**: Diferente
+- **` > `**: Maior que
+- **` < `**: Menor que
+- **` >= `**: Maior ou Igual
+- **` <= `**: Menor ou Igual
+
+Exemplo:
+
+```sql
+SELECT name, age
+FROM students
+WHERE age > 18;
+```
+**Operadores Lógicos**: São usados para combinar o conjunto de resultados de duas condições de componentes diferentes. Esses incluem:
+
+- **` AND `**: Retorna verdadeiro se ambos os componentes forem verdadeiros.
+- **` OU `**: Retorna verdadeiro se algum dos componentes for verdadeiro.
+- **` NOT `**: Retorna o valor booleano oposto da condição.
+
+Example:
+
+```sql
+SELECT * 
+FROM employees
+WHERE salary > 50000 AND age < 30;
+```
+
+**Operadores bitwise (bit a bit)**: executam operações em nível de bit nas entradas. Aqui está uma lista desses operadores:
+
+- **` & `**: Realiza uma conjunção lógica em duas expressões numéricas (E).
+- **` | `**: Realiza uma disjunção lógica em duas expressões numéricas (OU).
+- **` ^ `**: Executa uma exclusão lógica em duas expressões numéricas (OU Exclusivo).
+
+Operadores Bitwise são muito menos usados em SQL do que outros tipos de operadores.
+
+*Lembre-se de que o tipo de dados do resultado depende dos tipos dos operandos.*
+
 **`COUNTRY`** e **`CITY`**
 
 Tabela COUNTRY (País)
