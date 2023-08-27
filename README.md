@@ -285,14 +285,23 @@ Tabela **TABELA_CIDADE**:
 | ... | ... | ... | ... | ... |
 
 Tabela **TABELA_FUNCIONARIOS**:
-| funcionarios_ID | coluna_nome | coluna_posicao | coluna_salario | coluna_data_nascimento |
+| funcionarios_ID | coluna_nome | coluna_posicao | coluna_salario | departamento_ID |
 | :---: | :---: | :---: | :---: | :---: |  
-| 1 | Janete | Manager | 50000 | 01-05-1990 |
-| 2 | Joao | Clerk | 30000 | 02-04-1991 |
-| 3 | Roberto | Engineer | 40000 | 03-03-1992 |
-| 4 | Carlos | CEO | 60000 | 04-02-1993 |
-| 5 | Julio | Engineer | 40000 | 05-01-1993 |
+| 1 | Janete | Manager | 50000 | 01|
+| 2 | Joao | Clerk | 30000 | 02 |
+| 3 | Roberto | Engineer | 40000 | 03 |
+| 4 | Carlos | CEO | 60000 | 04 |
+| 5 | Julio | Engineer | 40000 | 04 |
 | ... | ... | ... | ... | ... |
+
+Tabela **TABELA_DEPARTAMENTO**:
+| departamento_ID | coluna_nome |
+| :---: | :---: | 
+| 1 | Setor Pessoal |
+| 2 | Compras |
+| 3 | Contabilidade |
+| 4 | Administração |
+| ... | ... |
 
 Tabela **TABELA_ESTUDANTE**:
 | estudante_ID | coluna_nome | coluna_idade | coluna_data_nascimento |
@@ -346,7 +355,7 @@ Considere que temos uma tabela ` TABELA_FUNCIONARIOS ` com colunas ` coluna_nome
 SELECT coluna_nome, coluna_posicao 
 FROM tabela_funcionarios;
 ```
-Isso recuperará todos os nomes e posicao de todos os funcionários da tabela TABELA_FUNCIONARIOS:
+Isso recuperará todos os nomes e posicao de todos os funcionários da tabela `  TABELA_FUNCIONARIOS `:
 | coluna_nome | coluna_posicao |
 | :---: | :---: |
 | Janete | Manager |
@@ -374,7 +383,7 @@ SELECT DISTINCT coluna_posicao
 FROM tabela_funcionarios;
 ```
 
-A consulta retornaria os valores únicos encontrados na coluna coluna_posicao da tabela TABELA_FUNCIONARIOS:
+A consulta retornaria os valores únicos encontrados na coluna coluna_posicao da tabela ` TABELA_FUNCIONARIOS `:
 | coluna_posicao |
 | :---: |
 | Manager |
@@ -406,51 +415,52 @@ A consulta retornaria somente os valores onde o Salario é superior a 50.000:
 | funcionarios_ID | coluna_nome | coluna_posicao | coluna_salario | coluna_data_nascimento |
 | :---: | :---: | :---: | :---: | :---: |  
 | 4 | Carlos | CEO | 60000 | 04-01-1993 |
+
 ###  FROM
 
-A cláusula FROM em SQL especifica as tabelas das quais a recuperação deve ser feita. É parte integrante das instruções SELECT e variantes de SELECT como SELECT INTO e SELECT WHERE. FROM também pode ser usado para unir tabelas.
+A cláusula FROM em SQL especifica as tabelas das quais a recuperação deve ser feita. É parte integrante das instruções SELECT e variantes de SELECT como ` SELECT INTO ` e ` SELECT WHERE `. ` FROM ` também pode ser usado para unir tabelas.
 
-Normalmente, FROM é seguido por uma lista delimitada por espaço de tabelas nas quais a operação SELECT deve ser executada. Se precisar extrair dados de várias tabelas, separe cada tabela com uma vírgula.
+Normalmente, ` FROM ` é seguido por uma lista delimitada por espaço de tabelas nas quais a operação ` SELECT ` deve ser executada. Se precisar extrair dados de várias tabelas, separe cada tabela com uma vírgula.
 
 Aqui estão alguns exemplos:
 
-Exemplo 1 – Uso Simples
+### Exemplo 1 – Uso Simples
 
-Se você tiver uma tabela chamada TABELA_FUNCIONARIOS, poderá selecionar todos os dados dos funcionários assim:
+Se você tiver uma tabela chamada ` TABELA_FUNCIONARIOS `, poderá selecionar todos os dados dos funcionários assim:
 
 ```sql
 SELECT * 
 FROM tabela_funcionarios;
 ```
 
-Neste exemplo, * significa “todas as colunas”. Então, ` SELECT * FROM tabela_funcionarios; ` recuperará todos os dados da tabela de **Funcionários**.
+Neste exemplo, ` * ` significa “todas as colunas”. Então, ` SELECT * FROM tabela_funcionarios; ` recuperará todos os dados da tabela de **Funcionários**.
 
-Exemplo 2 – FROM com múltiplas tabelas
+### Exemplo 2 – FROM com múltiplas tabelas
 
-Se você tiver várias tabelas, digamos, TABELA_FUNCIONARIOS e TABELA_DEPARTAMENTO, e quiser selecionar dados de ambos, poderá fazer o seguinte:
+Se você tiver várias tabelas, digamos, ` TABELA_FUNCIONARIOS ` e ` TABELA_DEPARTAMENTO `, e quiser selecionar dados de ambos, poderá fazer o seguinte:
 
 ```sql
 SELECT employees.name, departments.department 
 FROM employees, departments 
 WHERE employees.dept_id = departments.dept_id;
 ```
-Neste exemplo, a cláusula FROM é seguida por duas tabelas: TABELA_FUNCIONARIOS e TABELA_DEPARTAMENTO. funcionarios.coluna_nome e departamentos.coluna_departamento indicam que estamos selecionando a coluna coluna_nome da TABELA_FUNCIONARIOS funcionários e a coluna coluna_departamento da tabela TABELA_DEPARTAMENTO.
+Neste exemplo, a cláusula FROM é seguida por duas tabelas: ` TABELA_FUNCIONARIOS ` e ` TABELA_DEPARTAMENTO `. ` funcionarios.coluna_nome ` e ` departamentos.coluna_departamento ` indicam que estamos selecionando a ` coluna coluna_nome ` da ` TABELA_FUNCIONARIOS ` funcionários e a coluna ` coluna_departamento ` da tabela ` TABELA_DEPARTAMENTO `.
 
-Lembre-se, sempre respeite a ordem das operações no SQL. A cláusula FROM funciona somente após a identificação das tabelas.
+Lembre-se, sempre respeite a ordem das operações no SQL. A cláusula ` FROM ` funciona somente após a identificação das tabelas.
 
 Em consultas SQL complexas em que pode ser necessário extrair dados de diversas tabelas, os aliases são usados para renomear temporariamente as tabelas na instrução SQL individual.
 
-Exemplo 3 – FROM com Aliases
+### Exemplo 3 – FROM com Aliases
 
-Abaixo está um exemplo de cláusula FROM com aliases:
+Abaixo está um exemplo de cláusula ` FROM ` com aliases:
 
 ```sql
-SELECT e.coluna_nome, d.coluna_departamento 
-FROM tabela_funcionarios AS e, tabela_departamento AS d
-WHERE e.departamentoID = d.departamentoID;
+SELECT e.name, d.department 
+FROM employees AS e, departments AS d
+WHERE e.dept_id = d.dept_id;
 ```
 
-Neste exemplo, as tabelas TABELA_FUNCIONARIOS e TABELA_DEPARTAMENTO são denominadas ` e ` e ` d `, respectivamente.
+Neste exemplo, as tabelas de ` TABELA_FUNCIONARIOS ` e ` TABELA_DEPARTAMENTO ` são denominadas ` E ` e ` D `, respectivamente.
 
 É isso! Lembre-se que ` FROM ` não se limita apenas a ` SELECT `. Também é aplicável às operações ` UPDATE ` e ` DELETE `.
 
