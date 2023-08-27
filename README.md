@@ -406,6 +406,83 @@ A consulta retornaria somente os valores onde o Salario é superior a 50.000:
 | funcionarios_ID | coluna_nome | coluna_posicao | coluna_salario | coluna_data_nascimento |
 | :---: | :---: | :---: | :---: | :---: |  
 | 4 | Carlos | CEO | 60000 | 04-01-1993 |
+###  FROM
+
+A cláusula FROM em SQL especifica as tabelas das quais a recuperação deve ser feita. É parte integrante das instruções SELECT e variantes de SELECT como SELECT INTO e SELECT WHERE. FROM também pode ser usado para unir tabelas.
+
+Normalmente, FROM é seguido por uma lista delimitada por espaço de tabelas nas quais a operação SELECT deve ser executada. Se precisar extrair dados de várias tabelas, separe cada tabela com uma vírgula.
+
+Aqui estão alguns exemplos:
+
+Exemplo 1 – Uso Simples
+
+Se você tiver uma tabela chamada TABELA_FUNCIONARIOS, poderá selecionar todos os dados dos funcionários assim:
+
+```sql
+SELECT * 
+FROM tabela_funcionarios;
+```
+
+Neste exemplo, * significa “todas as colunas”. Então, ` SELECT * FROM tabela_funcionarios; ` recuperará todos os dados da tabela de **Funcionários**.
+
+Exemplo 2 – FROM com múltiplas tabelas
+
+Se você tiver várias tabelas, digamos, TABELA_FUNCIONARIOS e TABELA_DEPARTAMENTO, e quiser selecionar dados de ambos, poderá fazer o seguinte:
+
+```sql
+SELECT employees.name, departments.department 
+FROM employees, departments 
+WHERE employees.dept_id = departments.dept_id;
+```
+Neste exemplo, a cláusula FROM é seguida por duas tabelas: TABELA_FUNCIONARIOS e TABELA_DEPARTAMENTO. funcionarios.coluna_nome e departamentos.coluna_departamento indicam que estamos selecionando a coluna coluna_nome da TABELA_FUNCIONARIOS funcionários e a coluna coluna_departamento da tabela TABELA_DEPARTAMENTO.
+
+Lembre-se, sempre respeite a ordem das operações no SQL. A cláusula FROM funciona somente após a identificação das tabelas.
+
+Em consultas SQL complexas em que pode ser necessário extrair dados de diversas tabelas, os aliases são usados para renomear temporariamente as tabelas na instrução SQL individual.
+
+Exemplo 3 – FROM com Aliases
+
+Abaixo está um exemplo de cláusula FROM com aliases:
+
+```sql
+SELECT e.coluna_nome, d.coluna_departamento 
+FROM tabela_funcionarios AS e, tabela_departamento AS d
+WHERE e.departamentoID = d.departamentoID;
+```
+
+Neste exemplo, as tabelas TABELA_FUNCIONARIOS e TABELA_DEPARTAMENTO são denominadas ` e ` e ` d `, respectivamente.
+
+É isso! Lembre-se que ` FROM ` não se limita apenas a ` SELECT `. Também é aplicável às operações ` UPDATE ` e ` DELETE `.
+
+## WHERE
+
+SQL fornece uma cláusula ` WHERE ` que é basicamente usada para filtrar os registros. Se a condição especificada na cláusula ` WHERE ` for satisfeita, somente ela retornará o valor específico da tabela. Você deve usar a cláusula WHERE para filtrar os registros e buscar apenas os registros necessários.
+
+A cláusula ` WHERE ` não é usada apenas na instrução ` SELECT `, mas também nas instruções ` UPDATE `, ` DELETE `, etc., que aprenderemos nos capítulos subsequentes.
+
+Um exemplo de sua implementação é:
+
+```sql
+SELECT * FROM tabela_estudante WHERE coluna_idade > 10;
+```
+
+Neste exemplo, a instrução seleciona todos os campos da tabela ‘Alunos’ onde o valor do campo ‘Idade’ é maior que 10.
+
+A cláusula ` WHERE ` pode ser combinada com os operadores ` AND `, ` OR ` e ` NOT `. Aqui está um exemplo:
+
+```sql
+SELECT * FROM tabela_estudante WHERE coluna_idade > 10 AND coluna_genero = 'Feminino';
+```
+
+Neste exemplo, a estrução seleciona todos os campos da tabela ‘tabela_estudante’ onde o valor do campo ‘Idade’ é maior que 10 e o ‘Sexo’ é Feminino.
+
+A sintaxe geralmente é assim:
+
+```sql
+SELECT coluna_nome1, coluna_nome2, ...
+FROM tabela_nome
+WHERE condicao;
+```
 
 ## APELIDOS (ALIASES)
 
