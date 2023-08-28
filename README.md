@@ -127,7 +127,7 @@ UPDATE tabela_clientes SET coluna_nome_contato='Alfred Schmidt', coluna_cidade='
 DELETE: Este comando remove um ou mais registros de uma tabela. Por exemplo,
 
 ```sql
-DELETE FROM tabela_clientes WHERE coluna_coluna_cliente_nome='Alfreds Futterkiste';
+DELETE FROM tabela_clientes WHERE coluna_cliente_nome='Alfreds Futterkiste';
 ```
 
 CREATE DATABASE: Como seu nome indica, esta palavra-chave cria um novo banco de dados.
@@ -167,7 +167,7 @@ CREATE TABLE tabela_itens (
 ```sql
 CREATE TABLE tabela_funcionarios (
     ID INT,
-    coluna_Inicial_nome CHAR(1)
+    coluna_inicial_nome CHAR(1)
 );
 ```
 
@@ -285,17 +285,17 @@ Tabela **TABELA_CIDADE**:
 | ... | ... | ... | ... | ... |
 
 Tabela **TABELA_FUNCIONARIOS**:
-| funcionarios_ID | coluna_nome | coluna_posicao | coluna_salario | departamento_ID |
-| :---: | :---: | :---: | :---: | :---: |  
-| 1 | Janete | Manager | 50000 | 01|
-| 2 | Joao | Clerk | 30000 | 02 |
-| 3 | Roberto | Engineer | 40000 | 03 |
-| 4 | Carlos | CEO | 60000 | 04 |
-| 5 | Julio | Engineer | 40000 | 04 |
-| ... | ... | ... | ... | ... |
+| funcionarios_ID | coluna_nome | coluna_idade |coluna_posicao | coluna_salario | departamento_ID |
+| :---: | :---: | :---: | :---: | :---: | :---: |  
+| 1 | Janete | 25 | Manager | 50000 | 01|
+| 2 | Joao | 18 | Clerk | 30000 | 02 |
+| 3 | Roberto | 19 | Engineer | 40000 | 03 |
+| 4 | Carlos | 20 | CEO | 60000 | 04 |
+| 5 | Julio | 21 | Engineer | 40000 | 04 |
+| ... | ... | ... | ... | ... | ... |
 
 Tabela **TABELA_DEPARTAMENTO**:
-| departamento_ID | coluna_nome |
+| departamento_ID | coluna_departamento |
 | :---: | :---: | 
 | 1 | Setor Pessoal |
 | 2 | Compras |
@@ -304,13 +304,13 @@ Tabela **TABELA_DEPARTAMENTO**:
 | ... | ... |
 
 Tabela **TABELA_ESTUDANTE**:
-| estudante_ID | coluna_nome | coluna_idade | coluna_data_nascimento |
-| :---: | :---: | :---: | :---: |  
-| 1 | Janete | 33 | 01/04/1990 |
-| 2 | Joao | 32 | 02/03/1991 |
-| 3 | Roberto | 31 | 03/02/1992 |
-| 4 | Carlos | 30 | 04/01/1993 |
-| ... | ... | ... | ... | ... |
+| estudante_ID | coluna_nome | coluna_idade | coluna_genero | coluna_data_nascimento |
+| :---: | :---: | :---: | :---: | :---: |  
+| 1 | Janete | 33 | Feminino | 01/04/1990 |
+| 2 | Joao | 32 | Mascolino | 02/03/1991 |
+| 3 | Roberto | 31 | Mascolino | 03/02/1992 |
+| 4 | Carlos | 30 | Mascolino | 04/01/1993 |
+| ... | ... | ... | ... | ... | ... |
 
 Tabela **TABELA_PRODUTOS**:
 | produtos_ID | coluna_produto | coluna_preco |
@@ -440,11 +440,20 @@ Neste exemplo, ` * ` significa “todas as colunas”. Então, ` SELECT * FROM t
 Se você tiver várias tabelas, digamos, ` TABELA_FUNCIONARIOS ` e ` TABELA_DEPARTAMENTO `, e quiser selecionar dados de ambos, poderá fazer o seguinte:
 
 ```sql
-SELECT employees.name, departments.department 
-FROM employees, departments 
-WHERE employees.dept_id = departments.dept_id;
+SELECT tabela_funcionarios.coluna_nome, tabela_departamento.coluna_departamento 
+FROM tabela_funcionarios, tabela_departamento 
+WHERE tabela_funcionarios.departamento_ID = tabela_departamento.departamento_ID;
 ```
-Neste exemplo, a cláusula FROM é seguida por duas tabelas: ` TABELA_FUNCIONARIOS ` e ` TABELA_DEPARTAMENTO `. ` funcionarios.coluna_nome ` e ` departamentos.coluna_departamento ` indicam que estamos selecionando a ` coluna coluna_nome ` da ` TABELA_FUNCIONARIOS ` funcionários e a coluna ` coluna_departamento ` da tabela ` TABELA_DEPARTAMENTO `.
+Neste exemplo, a cláusula FROM é seguida por duas tabelas: ` TABELA_FUNCIONARIOS ` e ` TABELA_DEPARTAMENTO `. ` tabela_funcionarios.coluna_nome ` e ` tabela_departamento.coluna_departamento.coluna_departamento ` indicam que estamos selecionando a ` coluna_nome ` da ` TABELA_FUNCIONARIOS ` e a coluna ` coluna_departamento ` da tabela ` TABELA_DEPARTAMENTO `.
+
+| coluna_nome | coluna_departamento |
+| :---------: | :-----------------: |
+| Janete      | Setor Pessoal       |
+| Joao        | Compras             |
+| Roberto     | Contabilidade       |
+| Carlos      | Administração       |
+| Julio       | Administração       |
+| ...         | ...                 |
 
 Lembre-se, sempre respeite a ordem das operações no SQL. A cláusula ` FROM ` funciona somente após a identificação das tabelas.
 
@@ -455,12 +464,21 @@ Em consultas SQL complexas em que pode ser necessário extrair dados de diversas
 Abaixo está um exemplo de cláusula ` FROM ` com aliases:
 
 ```sql
-SELECT e.name, d.department 
-FROM employees AS e, departments AS d
-WHERE e.dept_id = d.dept_id;
+SELECT e.coluna_nome, d.coluna_departamento 
+FROM tabela_funcionarios AS e, tabela_departamento AS d
+WHERE e.departamento_ID = d.departamento_ID;
 ```
 
-Neste exemplo, as tabelas de ` TABELA_FUNCIONARIOS ` e ` TABELA_DEPARTAMENTO ` são denominadas ` E ` e ` D `, respectivamente.
+Neste exemplo, as tabelas ` TABELA_FUNCIONARIOS ` e ` TABELA_DEPARTAMENTO ` são denominadas ` E ` e ` D `, respectivamente.
+
+| coluna_nome | coluna_departamento |
+| :---------: | :-----------------: |
+| Janete      | Setor Pessoal       |
+| Joao        | Compras             |
+| Roberto     | Contabilidade       |
+| Carlos      | Administração       |
+| Julio       | Administração       |
+| ...         | ...                 |
 
 É isso! Lembre-se que ` FROM ` não se limita apenas a ` SELECT `. Também é aplicável às operações ` UPDATE ` e ` DELETE `.
 
@@ -493,6 +511,28 @@ SELECT coluna_nome1, coluna_nome2, ...
 FROM tabela_nome
 WHERE condicao;
 ```
+## ORDER BY
+
+A cláusula ` ORDER BY ` em SQL é usada para classificar o conjunto de resultados de uma instrução ` SELECT ` em ordem crescente ou decrescente. Ele classifica os registros em ordem crescente por padrão. Se quiser classificar os registros em ordem decrescente, você deve usar a palavra-chave ` DESC `.
+
+Sintaxe para ordem crescente:
+
+```sql
+SELECT column1, column2, ...
+FROM table_name
+ORDER BY column1, column2, ... ASC;
+```
+Aqui, ` ASC ` é usado para ordem crescente. Se você usar ` ORDER BY ` sem ` ASC ` ou ` DESC `, ` ASC ` será usado por padrão.
+
+Sintaxe para ordem decrescente:
+
+```sql
+SELECT column1, column2, ...
+FROM table_name
+ORDER BY column1, column2, ... DESC;
+```
+
+Aqui, ` DESC ` é usado para ordem decrescente.
 
 ## APELIDOS (ALIASES)
 
