@@ -515,7 +515,7 @@ WHERE condicao;
 
 A cláusula ` ORDER BY ` em SQL é usada para classificar o conjunto de resultados de uma instrução ` SELECT ` em ordem crescente ou decrescente. Ele classifica os registros em ordem crescente por padrão. Se quiser classificar os registros em ordem decrescente, você deve usar a palavra-chave ` DESC `.
 
-Sintaxe para ordem crescente:
+**Sintaxe para Ordem Crescente:**
 
 ```sql
 SELECT column1, column2, ...
@@ -524,7 +524,7 @@ ORDER BY column1, column2, ... ASC;
 ```
 Aqui, ` ASC ` é usado para ordem crescente. Se você usar ` ORDER BY ` sem ` ASC ` ou ` DESC `, ` ASC ` será usado por padrão.
 
-Sintaxe para ordem decrescente:
+**Sintaxe para Ordem Decrescente:**
 
 ```sql
 SELECT column1, column2, ...
@@ -534,21 +534,129 @@ ORDER BY column1, column2, ... DESC;
 
 Aqui, ` DESC ` é usado para ordem decrescente.
 
+**Exemplo de uso**
+
+Considere a seguinte tabela ` TABELA_CLIENTES `:
+
+| clientes_ID | coluna_nome | coluna_idade | coluna_salario | departamento_ID |
+| :---: | :---: | :---: | :---: | :---: | :---: |  
+| 1 | Janete | 25 | 50000 | 01|
+| 2 | Joao | 18 | 30000 | 02 |
+| 3 | Roberto | 19 | 40000 | 03 |
+| 4 | Carlos | 20 | 60000 | 04 |
+| 5 | Julio | 21  | 40000 | 04 |
+| ... | ... | ... | ... | ... |
+
+**Exemplo 1 - Ordem Crescente:**
+
+Classifique a tabela pela coluna ` coluna_nome ` em Ordem Crescente:
+
+```sql
+SELECT * FROM tabela_clientes
+ORDER BY NAME ASC;
+```
+
+**Exemplo 2 - Ordem Decrescente:**
+
+Classifique a tabela pela coluna SALÁRIO em Ordem Decrescente:
+
+```sql
+SELECT * FROM tabela_clientes
+ORDER BY coluna_salario DESC;
+```
+
+**Exemplo 3 - Múltiplas Colunas:**
+
+Você também pode classificar por várias colunas. Classifique a tabela pela coluna ` coluna_idade ` em ordem crescente e depois ` coluna_salario ` em Ordem Decrescente:
+
+```sql
+SELECT * FROM tabela_clientes
+ORDER BY coluna_idade ASC, coluna_salario DESC;
+```
+
+Neste caso, a cláusula ` ORDER BY ` primeiro classifica a tabela ` TABELA_CLIENTES ` pela coluna ` coluna_idade ` e depois classifica o resultado classificado pela coluna ` coluna_salario `.
+
+## GROUP BY
+“Group By” é uma cláusula SQL usada para organizar dados idênticos em grupos. Esta cláusula se enquadra na categoria de Funções de Grupo, junto com Contagem, Soma, Média, etc.
+
+**A sintaxe para 'Group by' é:**
+
+```sql
+SELECT coluna_nome1, coluna_nome2
+FROM tabela_nome
+GROUP BY coluna_nome1, coluna_nome2;
+```
+Aqui, coluna_nome1, coluna_nome2, são os nomes das colunas com base nas quais queremos agrupar os resultados.
+
+**Exemplo:**
+
+Suponha que temos uma tabela ` TABELA_VENDAS `. Esta tabela possui três colunas: vendas_ID, coluna_item e coluna_valor.
+| vendas_ID | coluna_item | coluna_valor |
+| :---:     | :---:       | :---:        |
+| 1         | carro       | 50000        |
+| 2         | moto        | 30000        |
+| 3         | barco       | 40000        | 
+| 4         | casa        | 60000        |
+| 5         | apartamento | 40000        |
+| 6         | carro       | 30000        |
+| 7         | casa        | 60000        |
+| 8         | moto        | 30000        |
+| ...       | ...         | ...          |
+
+Execute a seguinte instrução SQL…
+
+```sql
+SELECT coluna_item, SUM(coluna_valor)
+FROM tabela_vendas
+GROUP BY coluna_item;
+```
+| coluna_item | SUM(coluna_valor) |
+| ----------- | ----------------- |
+| carro       | 80000             |
+| moto        | 60000             |
+| barco       | 40000             |
+| casa        | 120000            |
+| apartamento | 40000             |
+| ...         | ...               |
+
+Isso irá concatenar, ou “**agrupar**”, todos os itens iguais em uma linha, aplicando a função ` SUM() ` em seus respectivos Valores. A saída será então:
+
+**Group By com cláusula Tendo**
+
+A cláusula Group By também pode ser usada com a palavra-chave Tendo. A palavra-chave Tendo permite filtrar os resultados da função de grupo.
+
+Por exemplo:
+
+```sql
+SELECT coluna_item, SUM(coluna_valor)
+FROM tabela_vendas
+GROUP BY coluna_item
+HAVING SUM(coluna_valor) > 150;
+```
+
+Isso retornará todos os itens agrupados onde o valor total for superior a 150. Portanto, o resultado será:
+
+| coluna_item | SUM(coluna_valor) |
+| ----------- | ----------------- |
+| casa        | 120000            |
+| ...         | ...               |
+
+
 ## APELIDOS (ALIASES)
 
 ### Exemplo em Colunas
 Um alias ou apelido é um nome alternativo que pode ser atribuído a uma tabela ou a uma coluna em uma consulta. Isso pode ser útil para simplificar a consulta, melhorar a legibilidade do código ou evitar conflitos de nome.
 
-Exemplo de consulta utilizando alias na coluna NAME da tabela CITY, com o apelido (AS) CITY_NAME:
+Exemplo de consulta utilizando alias na coluna ` coluna_nome ` da tabela ` TABELA_CLIDADE `, com o apelido (AS) ` coluna_cidade `:
 
 ```sql
-SELECT name AS city_name
+SELECT name AS coluna_cidade
 FROM city;
 ```
-Neste exemplo, em vez de retornar a coluna "name" com o nome original, a consulta retorna a mesma coluna com o apelido "city_name". Esse apelido pode ser usado para se referir à coluna em outras partes da consulta, como em cláusulas WHERE ou em outras junções.
+Neste exemplo, em vez de retornar a coluna ` coluna_nome ` com o nome original, a consulta retorna a mesma coluna com o apelido ` coluna_cidade `. Esse apelido pode ser usado para se referir à coluna em outras partes da consulta, como em cláusulas ` WHERE ` ou em outras junções.
 
 Resultado:
-| id | city_name |
+| cidade_ID | coluna_cidade |
 | :---: | :---: | 
 | 4 | Maranhão | 
 | 3 | São Paulo | 
@@ -1058,19 +1166,19 @@ Ele calcula resumos (agregados) para cada combinação exclusiva de valores.
 | 7 | Warsaw | 3 | 
 | ... | ... | ... |
 
-Agrupo todos os valores da coluna **`country_id`** agrupados em uma coluna chamada **`count`**.
+Agrupo todos os valores da coluna **`pais_ID`** agrupados em uma coluna chamada **`Contagem`**.
 ```sql
-SELECT country_id, COUNT(*) AS count 
-FROM city 
-GROUP BY country_id;
+SELECT pais_ID, COUNT(*) AS Contagem 
+FROM tabela_cidade 
+GROUP BY pais_ID;
 ```
 Resultado:
-| country_id | count | 
-| :---: | :---: |
-| 1 | 2 | 
-| 2 | 3 | 
-| 3 | 2 | 
-| ... | ... |
+| pais_ID | count | 
+| :---:      | :---: |
+| 1          | 2     | 
+| 2          | 3     | 
+| 3          | 2     | 
+| ...        | ...   |
 
 ## USANDO RESTRIÇÕES SQL (USING SQL CONSTRAINTS)
 
