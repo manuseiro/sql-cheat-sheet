@@ -7,7 +7,7 @@ Structured Query Language, ou SQL, é a linguagem declarativa de consulta padrã
 
 Embora todas as linguagens SQL compartilhem uma estrutura básica, alguns comandos e estilos específicos podem diferir ligeiramente. Dialectos populares incluem MySQL, SQLite, SQL Server, Oracle SQL, entre outros. O PostgreSQL é um bom ponto de partida, pois está próximo da sintaxe SQL padrão e pode ser facilmente adaptado para outros dialetos.
 
-## Componentes
+### Componentes
 SQL consiste em vários componentes, cada um servindo a seu propósito exclusivo na comunicação do banco de dados:
 
 Queries (Consultas): 
@@ -330,9 +330,7 @@ Tabela **TABELA_PEDIDOS**:
 | 4 | 20230826004 | 04 | 60000 | 26-08-2023  00:00:00 |
 | ... | ... | ... | ... | ... |
 
-## QUERIES (Consultas):
-
-### SELECT
+## SELECT
 A instrução ` SELECT ` em SQL é usada principalmente para buscar dados do banco de dados. É um dos elementos mais essenciais do SQL.
 
 Esta será a aparência do seu comando SELECT:
@@ -416,7 +414,7 @@ A consulta retornaria somente os valores onde o Salario é superior a 50.000:
 | :---: | :---: | :---: | :---: | :---: |  
 | 4 | Carlos | CEO | 60000 | 04-01-1993 |
 
-###  FROM
+##  FROM
 
 A cláusula FROM em SQL especifica as tabelas das quais a recuperação deve ser feita. É parte integrante das instruções SELECT e variantes de SELECT como ` SELECT INTO ` e ` SELECT WHERE `. ` FROM ` também pode ser usado para unir tabelas.
 
