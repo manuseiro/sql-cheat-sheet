@@ -1,8 +1,8 @@
 # SQL Basics Cheat Sheet
 
-O Resumo de Conceitos Básicos de SQL fornece a sintaxe de todas as cláusulas básicas, demonstra como escrever diferentes condições e inclui exemplos.
+Este repositório contém uma coleção abrangente de cheat sheets de SQL para ajudar desenvolvedores, analistas de dados e estudantes a realizar consultas e manipulações de banco de dados de maneira eficiente. O objetivo é fornecer uma referência rápida para os comandos SQL mais comuns, bem como exemplos práticos de uso.
 
-## O que é SQL?:
+## Introdução:
 Structured Query Language, ou SQL, é a linguagem declarativa de consulta padrão para manipulação de dados mantidos em sistemas de gerenciamento de banco de dados relacional (**` RDBMS `** ) ou para processamento de fluxo em um sistema de gerenciamento de fluxo de dados relacional (**` RDSMS `** ). Foi desenvolvido pela primeira vez na década de 1970 pela **` IBM `** .
 
 Embora todas as linguagens SQL compartilhem uma estrutura básica, alguns comandos e estilos específicos podem diferir ligeiramente. Dialectos populares incluem MySQL, SQLite, SQL Server, Oracle SQL, entre outros. O PostgreSQL é um bom ponto de partida, pois está próximo da sintaxe SQL padrão e pode ser facilmente adaptado para outros dialetos.
@@ -1257,6 +1257,13 @@ SELECT cl, C2 FROM district
 WHERE cl IS [NOT] NULL;
 ```
 
+## Contribuição
+
+Clone este repositório para o seu ambiente local:
+
+```bash
+git clone https://github.com/seu-usuario/sql-cheat-sheet.git
+```
 ## Referência
 
  - [W3Schools - SQL Tutorial](https://www.w3schools.com/sql)
