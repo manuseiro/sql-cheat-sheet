@@ -522,13 +522,13 @@ Aqui, ` DESC ` é usado para ordem decrescente.
 Considere a seguinte tabela ` TABELA_CLIENTES `:
 
 | clientes_ID | coluna_nome | coluna_idade | coluna_salario | departamento_ID |
-| :---: | :---: | :---: | :---: | :---: | :---: |  
-| 1 | Janete | 25 | 50000 | 01|
-| 2 | Joao | 18 | 30000 | 02 |
-| 3 | Roberto | 19 | 40000 | 03 |
-| 4 | Carlos | 20 | 60000 | 04 |
-| 5 | Julio | 21  | 40000 | 04 |
-| ... | ... | ... | ... | ... |
+| :---------: | :---------: | :----------: | :------------: | :-------------: | 
+| 1           | Janete      | 25           | 50000          | 01              |
+| 2           | Joao        | 18           | 30000          | 02              |
+| 3           | Roberto     | 19           | 40000          | 03              |
+| 4           | Carlos      | 20           | 60000          | 04              |
+| 5           | Julio       | 21           | 40000          | 04              |
+| ...         | ...         | ...          | ...            | ...             |
 
 **Exemplo 1 - Ordem Crescente:**
 
